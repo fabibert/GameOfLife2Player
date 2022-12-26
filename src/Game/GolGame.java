@@ -1,9 +1,24 @@
 package Game;
 
+import State.StateBuilder;
 import UI.GolUI;
 
-public class GolGame {
+public class GolGame extends Game<GolUI>{
     GolUI ui;
-    StateBuilder builder;
 
+    public GolGame(GolUI ui) {
+        super(ui);
+    }
+    //StateBuilder<T> builder;
+
+
+    @Override
+    public void initGame() {
+
+    }
+
+    @Override
+    public void start() {
+
+    }
 }
