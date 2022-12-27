@@ -1,24 +1,23 @@
 package Game;
 
+import State.GolState;
 import State.StateBuilder;
 import UI.GolUI;
 
-public class GolGame extends Game<GolUI>{
-    GolUI ui;
+public class GolGame extends Game<GolUI, GolState>{
 
-    public GolGame(GolUI ui) {
-        super(ui);
+    public GolGame(GolUI ui, StateBuilder<GolState> golStateBuilder) {
+        super(ui, golStateBuilder);
     }
     //StateBuilder<T> builder;
 
-
     @Override
-    public void initGame() {
-
+    public void start() {
+        super.start();
     }
 
     @Override
-    public void start() {
-
+    protected GameLogic createGameLogic(GolUI ui, GolState state) {
+        return new GolLogic(ui, state);
     }
 }
