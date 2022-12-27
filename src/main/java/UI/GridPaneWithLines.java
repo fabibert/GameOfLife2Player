@@ -79,8 +79,6 @@ public class GridPaneWithLines extends Application {
     }
 
 
-
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -93,92 +91,3 @@ class MyLaunch {
 }
 
 
-
-
-
-
-/*
-
-import javafx.application.Application;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
-public class Board {
-
-    private int[][] board_matrix;
-    private int board_size;
-    private int win_length;
-
-    public Board(int board_size, int win_length) {
-        this.board_matrix = new int[board_size][board_size];
-        this.board_size = board_size;
-        this.win_length = win_length;
-
-        for (int i = 0; i < board_size; i++) {
-            for (int j = 0; j < board_size; j++) {
-                this.board_matrix[i][j] = 0;
-            }
-        }
-    }
-
-
-    public void make_move(int player, int x_pos, int y_pos) {
-        if (player == 1) board_matrix[x_pos][y_pos] = 1;
-        else board_matrix[x_pos][y_pos] = 2;
-    }
-
-    public class BoardGUI_ extends Application {
-
-        private final int BOARD_SIZE = 15;
-
-        public void start(Stage stage) {
-
-            GridPane gameBoard = new GridPane();
-            gameBoard.setPrefSize(755, 755);
-
-            for (int i = 0; i < BOARD_SIZE; i++) {
-                for (int j = 0; j < BOARD_SIZE; j++) {
-
-                    Rectangle tile = new Rectangle(50, 50);
-                    tile.setFill(Color.BURLYWOOD);
-                    tile.setStroke(Color.BLACK);
-
-                    Text text = new Text();
-                    text.setFont(Font.font(40));
-                    gameBoard.add(new StackPane(tile, text), j, i);
-
-                    //GridPane.setRowIndex(tile, i);
-                    //GridPane.setColumnIndex(tile, j);
-                    //gameBoard.getChildren().addAll(tile, text);
-                    tile.setOnMouseClicked(event -> drawMove(text));
-                }
-            }
-        }
-
-        public void drawMove(Text text) {
-            text.setText("O");
-            text.setFill(Color.BLACK);
-        }
-
-
-        public static void main(String args[]) {
-            launch(args);
-        }
-
-
-    }
-}
-
-class MyLaunch {
-    public static void main(String[] args){
-        UI.Board.BoardGUI_.main(args);
-    }
-}
-
-
-*/
