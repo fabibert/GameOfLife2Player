@@ -6,15 +6,15 @@ import State.StateBuilder;
 
 import java.util.Objects;
 
-public abstract class Game<T extends UI, I extends State>{
+public abstract class Game<U extends UI, S extends State>{
 
-    private T ui;
-    private StateBuilder<I> stateBuilder;
-    private I state;
+    private U ui;
+    private StateBuilder<S> stateBuilder;
+    private S state;
 
     //GameInitializer<T> initializer;
 
-    public Game(T ui, StateBuilder<I> stateBuilder){
+    public Game(U ui, StateBuilder<S> stateBuilder){
         this.ui = ui;
         this.stateBuilder = stateBuilder;
     }
@@ -30,6 +30,6 @@ public abstract class Game<T extends UI, I extends State>{
         gameLogic.run();
     }
 
-    protected abstract GameLogic createGameLogic(T ui, I state);
+    protected abstract GameLogic createGameLogic(U ui, S state);
 
 }
