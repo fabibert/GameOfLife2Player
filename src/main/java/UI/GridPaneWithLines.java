@@ -3,7 +3,9 @@ package UI;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -18,6 +20,8 @@ public class GridPaneWithLines extends Application {
 
         //if not yet used creation clicks
         cell.setOnMouseClicked(e -> cellSwitch.set(!cellSwitch.get()));
+
+
 
         //if no yet used deletion clicks
 
@@ -97,6 +101,20 @@ public class GridPaneWithLines extends Application {
         scene.getStylesheets().add("./grid-with-borders.css");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        grid.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->{
+            double x = e.getX();
+            double y = e.getY();
+            //And if applicable
+            System.out.println("x: " + x + " y: " + y);
+        });
+
+        grid.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->{
+            Node clickedNode = e.getPickResult().getIntersectedNode();
+            Integer colIndex = GridPane.getColumnIndex(clickedNode);
+            Integer rowIndex = GridPane.getRowIndex(clickedNode);
+            System.out.println((colIndex)+ ":" + (rowIndex));
+        });
     }
 
 
