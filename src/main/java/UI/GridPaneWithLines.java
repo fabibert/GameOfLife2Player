@@ -10,46 +10,64 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class GridPaneWithLines extends Application {
-    
-    private StackPane createCell(BooleanProperty cellSwitch) {
+
+    //replace boolean property with red blue and white
+    private StackPane createCell(BooleanProperty cellSwitch, int player) {
 
         StackPane cell = new StackPane();
 
-        cell.setOnMouseClicked(e -> cellSwitch.set(! cellSwitch.get() ));
+        //if not yet used creation clicks
+        cell.setOnMouseClicked(e -> cellSwitch.set(!cellSwitch.get()));
 
-        Rectangle rectangle = new Rectangle(40,40, Color.RED);
+        //if no yet used deletion clicks
 
-        rectangle.visibleProperty().bind(cellSwitch);
+        Rectangle rectangle = new Rectangle(40, 40, Color.RED);
+        //color depending on player
+        if (player == 1) {
+            rectangle = new Rectangle(40, 40, Color.BLUE);
+        }
+
+        rectangle.visibleProperty().bind(cellSwitch); //with cell switch set visible or not
 
         cell.getChildren().add(rectangle);
         cell.getStyleClass().add("cell");
+
+        //also display cells which are alive
+
+        //register which cell is clicked
+
+
         return cell;
     }
 
-    private GridPane createGrid(BooleanProperty[][] board) {
+    //GridPane gird which hold StackPane cells
+    private GridPane createGrid(BooleanProperty[][] board, int player) {
 
+        //board length and size will be given by board
         int numCols = board.length ;
         int numRows = board[0].length;
         
         GridPane grid = new GridPane();
 
+        //adjust scale to zooming
         for (int x = 0 ; x < numCols ; x++) {
             ColumnConstraints cc = new ColumnConstraints();
             cc.setFillWidth(true);
             cc.setHgrow(Priority.ALWAYS);
-            grid.getColumnConstraints().add(cc);
+            grid.getColumnConstraints().add(cc); //put constraints to grid Columns
         }
 
         for (int y = 0 ; y < numRows ; y++) {
             RowConstraints rc = new RowConstraints();
             rc.setFillHeight(true);
             rc.setVgrow(Priority.ALWAYS);
-            grid.getRowConstraints().add(rc);
+            grid.getRowConstraints().add(rc); //put constraints to grid Rows
         }
 
+        //add cells to grid
         for (int x = 0 ; x < numCols ; x++) {
             for (int y = 0 ; y < numRows ; y++) {
-                grid.add(createCell(board[x][y]), x, y);
+                grid.add(createCell(board[x][y], player), x, y);
             }
         }
 
@@ -69,7 +87,10 @@ public class GridPaneWithLines extends Application {
             }
         }
 
-        GridPane grid = createGrid(board);
+        GridPane grid = createGrid(board, 1);
+
+        //set cell;
+        //board[x][y]
 
         StackPane root = new StackPane(grid);
         Scene scene = new Scene(root, 600, 600);
