@@ -1,6 +1,3 @@
 package UI;
 
-public interface Coordinates {
-    int getX();
-    int getY();
-}
+public record Coordinates(int x, int y) {}

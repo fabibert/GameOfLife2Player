@@ -1,7 +1,12 @@
 package State;
 
 public interface GolState extends State {
-    void getCurrentPlayers();
-    void getBoard();
-    void getNextPlayer();
+
+    Player getCurrentPlayer();
+
+    int getNumberOfGeneration();
+
+    GolBoard getBoard();
+
+    void increaseNumberOfGenerations();
 }
