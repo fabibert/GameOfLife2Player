@@ -3,7 +3,9 @@ package UI;
 public abstract class GolUI extends UI {
     abstract void displayState();
 
-    public abstract String requestPlayerName();
+    public String requestPlayerName(){
+        return " ";
+    }
 
     abstract void getPlayerCellCreation();
 
