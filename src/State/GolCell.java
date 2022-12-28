@@ -4,11 +4,13 @@ import java.util.Optional;
 
 public record GolCell(Optional<Player> player) implements Cell {
 
-    boolean isAlive(){
+    public boolean isAlive(){
         return player.isPresent();
     }
 
-    Player getPlayer(){
+    public Player getPlayer(){
         return player.get();
     }
+
+
 }
