@@ -7,16 +7,14 @@ import org.junit.jupiter.api.Test;
 class GolUITest {
 
     GolBoardImpl board = new GolBoardImpl(10,10);
-    //set cell
-    //get cell
 
 
     @Test
     void displayState() {
-        //get board and display
-        board.setCellToPlayer(1,1, "Fabio");
-        System.out.println(board.getCell(1,1));
-
+        GolUI ui = new GolUI();
+        //pass board to be implemented
+        ui.displayState();
+        //board.setCellToPlayer(3,3, "Fabio");
     }
 
     @Test

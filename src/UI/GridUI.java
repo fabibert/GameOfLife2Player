@@ -17,13 +17,13 @@ import java.util.List;
 public class GridUI extends Application {
 
     //replace boolean property with red blue and white
-    private StackPane createCell(GolCell cellSwitch, List playersList) {
+    private StackPane createCell(GolCell cellSwitch, List<Player> playersList) {
         StackPane cell = new StackPane();
 
         Rectangle rectangle;
         //color depending on player //implemented only for 2 players
         if (cellSwitch.isAlive()) {
-            if(cellSwitch.getPlayer().playerName() == playersList.get(0))
+            if(cellSwitch.getPlayer().playerName() == playersList.get(0).playerName())
                 rectangle = new Rectangle(40, 40, Color.BLUE);
             else
                 rectangle = new Rectangle(40, 40, Color.RED);
@@ -87,10 +87,6 @@ public class GridUI extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        LocateClick(grid);
-    }
-
-    public void LocateClick(GridPane grid){
         grid.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->{
             Node clickedNode = e.getPickResult().getIntersectedNode();
             Integer colIndex = GridPane.getColumnIndex(clickedNode);
@@ -99,15 +95,19 @@ public class GridUI extends Application {
         });
     }
 
+    public void LocateClick(GridPane grid){
 
-    public static void main(String[] args) {
-        launch(args);
+    }
+
+
+    public static void main() {
+        launch();
     }
 }
 
 class MyLaunch {
     public static void main(String[] args){
-        GridUI.main(args);
+        GridUI.main();
     }
 }
 
