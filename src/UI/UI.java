@@ -4,9 +4,9 @@ public abstract class UI {
     //request info
     public abstract String requestPlayerName(); //to validate in Game
 
-    abstract Coordinates requestCellCreation();
+    void requestCellCreation(){};
 
-    abstract Coordinates requestCellDeletion();
+    void requestCellDeletion(){};
 
     //change display
     //void displayState(Board board);

@@ -15,20 +15,18 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class TextFieldGettingData extends Application {
-    public void start(Stage stage) { //should return the string
-        //Creating nodes
+public class TextFieldGetData extends Application {
+    String playerName = "Default";
+
+
+
+    public void start(Stage stage) {
         TextField textField1 = new TextField();
-        //TextField textField2 = new TextField();
         Button button = new Button("Submit");
         button.setTranslateX(250);
         button.setTranslateY(75);
-        //Creating labels
-        Label label1 = new Label("Player1 Name: ");
-        //Label label2 = new Label("Player2 Name: ");
-        //Setting the message with read data
+        Label label1 = new Label("Player Name: ");
         Text text = new Text("");
-        //Setting font to the label
         Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 10);
         text.setFont(font);
         text.setTranslateX(15);
@@ -40,13 +38,13 @@ public class TextFieldGettingData extends Application {
         button.setOnAction(e -> {
             //Retrieving data
             String playerName = textField1.getText();
-            //String playerName2 = textField2.getText();
             text.setText("Hello "+playerName+". Thank your for playing with us!");
+            setReturnValue(playerName);
         });
         //Adding labels for nodes
         HBox box = new HBox(5);
         box.setPadding(new Insets(25, 5 , 5, 50));
-        box.getChildren().addAll(label1, textField1); //, label2, textField2);
+        box.getChildren().addAll(label1, textField1);
         Group root = new Group(box, button, text);
         //Setting the stage
         Scene scene = new Scene(root, 595, 150, Color.WHITE);
@@ -54,14 +52,23 @@ public class TextFieldGettingData extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    public static void main(String args[]){
-        launch(args);
+    public void setReturnValue(String playerName){
+        this.playerName = playerName;
+    }
+
+    public String getReturnValue(){
+        return this.playerName;
+    }
+
+
+
+    public static void main(){
+        launch();
     }
 }
 
-class MyLauncher {
+class MyLaunche {
     public static void main(String[] args){
-        TextFieldGettingData.main(args);
+        TextFieldGetData.main();
     }
 }
-
