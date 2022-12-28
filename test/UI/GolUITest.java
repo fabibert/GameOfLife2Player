@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class GolUITest {
 
-    GolBoardImpl board = new GolBoardImpl();
+    GolBoardImpl board = new GolBoardImpl(10,10);
     //set cell
     //get cell
 
@@ -14,7 +14,7 @@ class GolUITest {
     @Test
     void displayState() {
         //get board and display
-        board.setCell(1,1);
+        board.setCellToPlayer(1,1, "Fabio");
         System.out.println(board.getCell(1,1));
 
     }

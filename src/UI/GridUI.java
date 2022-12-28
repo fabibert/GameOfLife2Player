@@ -2,9 +2,8 @@ package UI;
 
 import State.GolBoardImpl;
 import State.GolCell;
+import State.Player;
 import javafx.application.Application;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
@@ -13,22 +12,18 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class GridPaneWithLines extends Application {
+import java.util.List;
+
+public class GridUI extends Application {
 
     //replace boolean property with red blue and white
-    private StackPane createCell(GolCell cellSwitch, int player) {
-
+    private StackPane createCell(GolCell cellSwitch, List playersList) {
         StackPane cell = new StackPane();
 
-        //if not yet used creation clicks
-        //cell.setOnMouseClicked(e -> cellSwitch.set(!cellSwitch.get()));
-
-        //if no yet used deletion clicks
-
         Rectangle rectangle;
-        //color depending on player
+        //color depending on player //implemented only for 2 players
         if (cellSwitch.isAlive()) {
-            if(cellSwitch.getPlayer().playerName() == "Fabio")
+            if(cellSwitch.getPlayer().playerName() == playersList.get(0))
                 rectangle = new Rectangle(40, 40, Color.BLUE);
             else
                 rectangle = new Rectangle(40, 40, Color.RED);
@@ -37,34 +32,14 @@ public class GridPaneWithLines extends Application {
             rectangle = new Rectangle(40, 40, Color.WHITE);
         }
 
-        //rectangle.visibleProperty().bind(cellSwitch); //with cell switch set visible or not
-
         cell.getChildren().add(rectangle);
         cell.getStyleClass().add("cell");
-
-        //also display cells which are alive
-
-        //register which cell is clicked
-
-
         return cell;
     }
 
-    //GridPane gird which hold StackPane cells
-    private GridPane createGrid(BooleanProperty[][] board, int player) {
-
-        GolBoardImpl board1 = new GolBoardImpl();
-        //set cell
-        //get cell
-        board1.setCell(1,1, "Fabio");
-        board1.setCell(2,2, "Joe");
-        System.out.println(board1.getCell(1,1));
-        //board length and size will be given by board
-        //int numCols = board1.length ; //use length getter
-        //int numRows = board1[0].length;
-
-        int numCols = 10;
-        int numRows = 10;
+    private GridPane createGrid(GolBoardImpl board, List<Player> playersList) {
+        int numCols = board.getBoardHeight();
+        int numRows = board.getBoardWidth();
         
         GridPane grid = new GridPane();
 
@@ -86,7 +61,7 @@ public class GridPaneWithLines extends Application {
         //add cells to grid
         for (int x = 0 ; x < numCols ; x++) {
             for (int y = 0 ; y < numRows ; y++) {
-                grid.add(createCell(board1.getCell(x,y), player), x, y);
+                grid.add(createCell(board.getCell(x,y), playersList), x, y);
             }
         }
 
@@ -96,20 +71,15 @@ public class GridPaneWithLines extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        int numCols = 10;
-        int numRows = 10 ;
+        //later pass GolBoardImpl and playersList
+        List<Player> playersList = List.of(new Player("Fabio"), new Player("Joe"));
 
-        BooleanProperty[][] board = new BooleanProperty[numCols][numRows];
-        for (int x = 0 ; x < numCols ; x++) {
-            for (int y = 0 ; y < numRows ; y++) {
-                board[x][y] = new SimpleBooleanProperty();
-            }
-        }
+        GolBoardImpl board1 = new GolBoardImpl(10,10);
+        board1.setCellToPlayer(1,1, playersList.get(0).playerName());
+        board1.setCellToPlayer(2,2, playersList.get(1).playerName());
+        System.out.println(board1.getCell(1,1));
 
-        GridPane grid = createGrid(board, 1);
-
-        //set cell;
-        //board[x][y]
+        GridPane grid = createGrid(board1, playersList);
 
         StackPane root = new StackPane(grid);
         Scene scene = new Scene(root, 600, 600);
@@ -117,13 +87,10 @@ public class GridPaneWithLines extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        grid.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->{
-            double x = e.getX();
-            double y = e.getY();
-            //And if applicable
-            System.out.println("x: " + x + " y: " + y);
-        });
+        LocateClick(grid);
+    }
 
+    public void LocateClick(GridPane grid){
         grid.addEventHandler(MouseEvent.MOUSE_CLICKED, e ->{
             Node clickedNode = e.getPickResult().getIntersectedNode();
             Integer colIndex = GridPane.getColumnIndex(clickedNode);
@@ -140,7 +107,7 @@ public class GridPaneWithLines extends Application {
 
 class MyLaunch {
     public static void main(String[] args){
-        GridPaneWithLines.main(args);
+        GridUI.main(args);
     }
 }
 

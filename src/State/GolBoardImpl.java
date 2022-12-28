@@ -6,16 +6,34 @@ import java.util.Optional;
 public class GolBoardImpl extends GolBoard {
 
     GolCell[][] board;
+    int boardHeight;
+    int boardWidth;
 
-    public GolBoardImpl(){
-        board = new GolCell[10][10];
+    public GolBoardImpl(int boardHeight,int boardWidth){
+        this.boardHeight = boardHeight;
+        this.boardWidth = boardWidth;
+        board = new GolCell[this.boardHeight][this.boardWidth];
         for (GolCell[] row: board)
             Arrays.fill(row, new GolCell(Optional.empty()));
     }
 
-    public void setCell(int x,int y, String name) {
+    public int getBoardHeight(){
+        return this.boardHeight;
+    }
+
+    public int getBoardWidth(){
+        return this.boardWidth;
+    }
+
+    public void setCellToPlayer(int x,int y, String name) {
         board[x][y] = new GolCell(Optional.of(new Player(name)));
     }
+
+    public void setCellEmpty(int x,int y) {
+        board[x][y] = new GolCell(Optional.empty());
+    }
+
+
     public GolCell getCell(int x, int y) {
         return board[x][y];
     }
@@ -32,8 +50,8 @@ public class GolBoardImpl extends GolBoard {
 
 class MyLaunch {
     public static void main(String[] args){
-        GolBoardImpl board = new GolBoardImpl();
-        board.setCell(1,1, "Fabio");
+        GolBoardImpl board = new GolBoardImpl(10,10);
+        board.setCellToPlayer(1,1, "Fabio");
         System.out.println(board.getCell(1,1));
     }
 }
