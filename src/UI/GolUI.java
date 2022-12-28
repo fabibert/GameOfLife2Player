@@ -1,11 +1,11 @@
 package UI;
 
+import State.EncapsulatedGolState;
+
 public interface GolUI extends UI {
-    void displayState();
 
-    void requestPlayerName();
+    Coordinates requestCellCreation();
+    Coordinates requestCellDeletion();
+    void displayState(EncapsulatedGolState board);
 
-    void getPlayerCellCreation();
-
-    void getPlayerCellDeletion();
 }

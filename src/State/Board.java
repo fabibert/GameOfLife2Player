@@ -1,5 +1,6 @@
 package State;
 
 public interface Board<T> {
-    //T[][] board;?
+    T[][] getArray();
+    void setArray(T[][] array);
 }

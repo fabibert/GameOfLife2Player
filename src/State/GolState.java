@@ -1,7 +1,11 @@
 package State;
 
+import java.util.List;
+
 public interface GolState extends State {
-    void getCurrentPlayers();
-    void getBoard();
-    void getNextPlayer();
+    List<Player> getPlayers();
+    GolBoard getBoard();
+    Player getCurrentPlayer();
+    int getNumberOfGenerations();
+    void increaseNumberOfGenerations();
 }
