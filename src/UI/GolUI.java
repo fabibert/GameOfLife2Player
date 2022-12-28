@@ -11,11 +11,17 @@ public class GolUI extends UI {
     };
 
     public String requestPlayerName(){
-        TextFieldGetData field = new TextFieldGetData();
-        TextFieldGetData.main();
-        //here we need to wait on thread
-        //System.out.println(field.getReturnValue());
-        //return field.getReturnValue();
+//        CountDownLatch latch = new CountDownLatch(1);
+//        //TextFieldGetData field = new TextFieldGetData(latch);
+//        Stage stage = new Stage();
+//        TextFieldGetData.main();
+//        String playerName = null;
+//        try {
+//            playerName = field.awaitReturnValue();
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return playerName;
         return " ";
     }
 

@@ -4,6 +4,8 @@ package UI;
 import State.GolBoardImpl;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class GolUITest {
 
     GolBoardImpl board = new GolBoardImpl(10,10);
@@ -19,6 +21,9 @@ class GolUITest {
 
     @Test
     void requestPlayerName() {
+        GolUI ui = new GolUI();
+        String playerName = ui.requestPlayerName();
+        assertEquals("Fabio", playerName);
     }
 
     @Test
@@ -29,4 +34,10 @@ class GolUITest {
     @Test
     void getPlayerCellDeletion() {
     }
+
+    @Test
+    void testTextField(){
+        TextFieldGetData.main();
+    }
+
 }
