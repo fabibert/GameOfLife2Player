@@ -3,7 +3,6 @@ package UI;
 import UI.elements.TextFieldButton;
 import UI.elements.TextFieldHBox;
 import UI.elements.TextFieldText;
-import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,7 +20,7 @@ public class TextFieldGetData {
     public static final int TEXT_FIELD_WIDTH = 595;
     public static final int TEXT_FIELD_HEIGHT = 150;
     private String playerName = "";
-    private CountDownLatch countDownLatch;
+    private final CountDownLatch countDownLatch;
     //public static String playerName = "default";
 
     public TextFieldGetData(){

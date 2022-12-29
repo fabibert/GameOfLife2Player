@@ -98,7 +98,7 @@ public class GridPaneWithLines extends Application {
 
         StackPane root = new StackPane(grid);
         Scene scene = new Scene(root, 600, 600);
-        scene.getStylesheets().add("./grid-with-borders.css");
+        scene.getStylesheets().add("grid-with-borders.css");
         primaryStage.setScene(scene);
         primaryStage.show();
 

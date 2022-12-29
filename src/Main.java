@@ -1,7 +1,5 @@
 import Game.GameFactory;
 import Game.GameFactoryImpl;
-import UI.GolUI;
-import UI.GolUIImpl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
