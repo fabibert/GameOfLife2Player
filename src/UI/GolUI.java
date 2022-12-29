@@ -1,10 +1,13 @@
 package UI;
 
-public interface GolUI extends UI {
-    abstract void displayState();
+import State.Observer;
+
+public interface GolUI extends UI, Observer {
 
     abstract Coordinates requestPlayerCellCreation();
 
     abstract Coordinates requestPlayerCellDeletion();
+
+
 
 }

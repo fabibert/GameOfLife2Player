@@ -1,9 +1,11 @@
 package UI;
 
+import State.EncapsulatedGolState;
 import javafx.stage.Stage;
 
 public class GolUIImpl implements GolUI {
     Stage stage;
+
 
     public GolUIImpl(Stage stage){
         this.stage = stage;
@@ -37,4 +39,8 @@ public class GolUIImpl implements GolUI {
     }
 
 
+    @Override
+    public void recieveGolStateEncapsulated(EncapsulatedGolState state) {
+        //displayState
+    }
 }

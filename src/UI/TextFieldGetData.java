@@ -45,7 +45,6 @@ public class TextFieldGetData {
     public void setReturnValue(String playerName){
         this.playerName = playerName;
         countDownLatch.countDown();
-
     }
 
     public String awaitReturnValue(){
