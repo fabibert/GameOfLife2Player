@@ -2,24 +2,15 @@ package State;
 
 import java.util.Optional;
 
-public class GolCell {
-
-    private final Optional<Player> owner;
-
-    public GolCell(){
-        owner = Optional.empty();
-    }
-
-    public GolCell(Player player){
-        owner = Optional.of(player);
-    }
+public record GolCell(Optional<Player> player) implements Cell {
 
     public boolean isAlive(){
-        return owner.isPresent();
+        return player.isPresent();
     }
 
-    public Optional<Player> getOwner(){
-        return owner;
+    public Player getPlayer(){
+        return player.get();
     }
+
 
 }

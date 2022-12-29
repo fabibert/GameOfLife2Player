@@ -2,11 +2,12 @@ package State;
 
 import java.util.List;
 
-public class GolStateImpl implements GolState {
+public class GolStateImpl implements GolState{
 
     private final List<Player> players;
     private int numberOfGenerations = 0;
     private GolBoard board;
+
 
     public GolStateImpl(String player1Name, String player2Name, GolBoard board) {
         Player player1 = new Player(player1Name);
@@ -39,6 +40,4 @@ public class GolStateImpl implements GolState {
     public void increaseNumberOfGenerations() {
         numberOfGenerations++;
     }
-
-
 }

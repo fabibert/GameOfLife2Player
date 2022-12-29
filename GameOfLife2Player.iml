@@ -26,6 +26,12 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:20-ea+2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:mac:20-ea+2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:20-ea+2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:mac:20-ea+2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:20-ea+2" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:mac:20-ea+2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-core:4.5.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.bytebuddy:byte-buddy:1.12.9" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.bytebuddy:byte-buddy-agent:1.12.9" level="project" />

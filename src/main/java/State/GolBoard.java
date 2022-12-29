@@ -1,15 +1,10 @@
 package State;
 
-public class GolBoard implements Board{
-    Cell[][] board;
+public abstract class GolBoard implements Board<GolCell>{
+    GolCell[][] board;
 
-    @Override
-    public Object[][] getArray() {
-        return new Object[0][];
-    }
 
-    @Override
-    public void setArray(Object[][] array) {
+    public abstract GolCell[][] getArray();
 
-    }
+    public abstract void setArray(GolCell[][] array);
 }

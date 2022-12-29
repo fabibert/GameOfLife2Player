@@ -1,28 +1,55 @@
 package UI;
 
-import State.EncapsulatedGolState;
-import State.GolBoard;
-import State.GolBoardImpl;
-import State.Player;
+
 import org.junit.jupiter.api.Test;
 
-import java.util.Map;
+class GolUITest{
+    //figure out how to write a test for this
+//    GolUI ui;
+//
+//
+//    public GolUITest(Stage stage){
+//        this.stage = stage;
+//    }
+//
+//    @BeforeEach
+//    public void main() {
+//        System.out.println("Hello world!");
+//        launch();
+//    }
 
-import static org.junit.jupiter.api.Assertions.*;
+//    public void start(Stage stage) throws Exception {
+//        GolUITest uiTest = new GolUITest(stage);
+//        this.ui = new GolUI(stage);
+//    }
 
-class GolUITest {
 
-    GolUI golUI = null;
+
+//    @Test
+//    void displayState() {
+//        //pass board to be implemented
+//        this.ui.displayState();
+//        //board.setCellToPlayer(3,3, "Fabio");
+//    }
+//
+//    @Test
+//    void requestPlayerName() {
+//        String playerName = this.ui.requestPlayerName();
+//        assertEquals("Fabio", playerName);
+//    }
 
     @Test
-    public void testRequestPlayerWillReturnPlayerNameAfterUserInteraction(){
-        assertEquals("Tom", golUI.requestPlayerName());
+    void getPlayerCellCreation() {
+        //get Board and clicked on cell
     }
 
     @Test
-    public void testRequestKillCoordinatesWillReturnTheClickedLocationAfterUserInteraction(){
-        GolBoard board = new GolBoardImpl();
-        golUI.displayState(new EncapsulatedGolState(Map.of(new Player("player1"), 1, new Player("player2"), 3), board));
-        assertEquals("Tom", golUI.requestPlayerName());
+    void getPlayerCellDeletion() {
     }
+
+    @Test
+    void testTextField(){
+        TextFieldGetData.main();
+    }
+
 }

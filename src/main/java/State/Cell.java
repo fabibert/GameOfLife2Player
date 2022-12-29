@@ -1,4 +1,5 @@
 package State;
 
-public class Cell {
+public interface Cell {
+    
 }
