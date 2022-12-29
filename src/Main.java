@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         GameFactory gameFactory = new GameFactoryImpl();
-        gameFactory.createGOLGame(stage).start();
+        new Thread(() -> gameFactory.createGOLGame(stage).start()).start();
     }
 }
 

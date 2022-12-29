@@ -2,6 +2,10 @@ package UI;
 
 import javafx.stage.Stage;
 
+import java.awt.*;
+
+import static com.sun.javafx.application.PlatformImpl.runLater;
+
 public class GolUIImpl implements GolUI {
     Stage stage;
 
@@ -22,7 +26,7 @@ public class GolUIImpl implements GolUI {
 
     public String requestPlayerName(){
         TextFieldGetData field = new TextFieldGetData();
-        field.start(stage);
+        runLater(() -> field.start(stage));
         return field.awaitReturnValue();
     }
 
