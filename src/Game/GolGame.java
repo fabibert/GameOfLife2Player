@@ -13,7 +13,13 @@ public class GolGame extends Game<GolUI, GolState>{
 
     @Override
     public void start() {
+
         super.start();
+    }
+
+    @Override
+    protected void initObserverPattern(GolUI ui, GolState state){
+        state.addObserver(ui);
     }
 
     @Override

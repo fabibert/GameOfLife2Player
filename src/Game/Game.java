@@ -30,6 +30,8 @@ public abstract class Game<U extends UI, S extends State>{
         gameLogic.run();
     }
 
+    protected abstract void initObserverPattern(U ui, S state);
+
     protected abstract GameLogic createGameLogic(U ui, S state);
 
 }
