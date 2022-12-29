@@ -130,10 +130,10 @@ public class GridUI extends Application {
     }
 }
 
-class MyLaunch {
-    public static void main(String[] args){
-        GridUI.main();
-    }
-}
+//class MyLaunch {
+//    public static void main(String[] args){
+//        GridUI.main();
+//    }
+//}
 
 

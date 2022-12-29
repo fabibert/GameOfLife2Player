@@ -1,12 +1,8 @@
 package UI;
 
-public abstract class UI {
+public interface UI {
     //request info
-    abstract String requestPlayerName(); //to validate in Game
-
-    abstract Coordinates requestCellCreation();
-
-    abstract Coordinates requestCellDeletion();
+    String requestPlayerName(); //to validate in Game
 
     //change display
     //void displayState(Board board);

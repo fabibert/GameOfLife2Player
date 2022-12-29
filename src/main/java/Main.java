@@ -1,18 +1,19 @@
+import Game.GameFactory;
+import Game.GameFactoryImpl;
 import UI.GolUI;
+import UI.GolUIImpl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
-        launch();
+        Main.launch();
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
-        GolUI ui = new GolUI(stage);
-        String name = ui.requestPlayerName();
-        System.out.println(name);
+    public void start(Stage stage) {
+        GameFactory gameFactory = new GameFactoryImpl();
+        gameFactory.createGOLGame(stage).start();
     }
 }
 

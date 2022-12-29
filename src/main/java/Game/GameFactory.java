@@ -1,5 +1,7 @@
 package Game;
 
+import javafx.stage.Stage;
+
 public interface GameFactory {
-    Game createGOLGame();
+    Game createGOLGame(Stage stage);
 }

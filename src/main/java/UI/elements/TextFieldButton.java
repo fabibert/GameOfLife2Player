@@ -1,24 +1,26 @@
 package UI.elements;
 
+import UI.TextFieldGetData;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import java.util.concurrent.CountDownLatch;
+
 public class TextFieldButton extends Button {
     public String playerName;
 
-    public TextFieldButton(TextField textField, Text text) {
+    public TextFieldButton(TextField textField, Text text, TextFieldGetData parent) {
         super("Submit");
         this.setTranslateX(250);
         this.setTranslateY(75);
-        this.setOnAction(e -> playerInteraction(textField, text));
+        this.setOnAction(e -> playerInteraction(textField, text, parent));
     }
 
-    private void playerInteraction(TextField textField1, Text text) {
-        String playerName = textField1.getText();
+    private void playerInteraction(TextField textField, Text text, TextFieldGetData parent) {
+        String playerName = textField.getText();
         text.setText("Hello " + playerName + ". Thank your for playing with us!");
-        this.playerName = playerName;
-        //setReturnValue(playerName);
+        parent.setReturnValue(playerName);
     }
 
 

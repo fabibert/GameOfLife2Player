@@ -1,12 +1,10 @@
 package UI;
 
-public abstract class GolUI extends UI {
+public interface GolUI extends UI {
     abstract void displayState();
 
-    abstract String requestPlayerName();
+    abstract Coordinates requestPlayerCellCreation();
 
-    abstract void getPlayerCellCreation();
-
-    abstract void getPlayerCellDeletion();
+    abstract Coordinates requestPlayerCellDeletion();
 
 }

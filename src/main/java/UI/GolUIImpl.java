@@ -2,14 +2,14 @@ package UI;
 
 import javafx.stage.Stage;
 
-public class GolUI extends UI {
+public class GolUIImpl implements GolUI {
     Stage stage;
 
-    public GolUI(Stage stage){
+    public GolUIImpl(Stage stage){
         this.stage = stage;
     }
 
-    void displayState(){
+    public void displayState(){
         GridUI grid = new GridUI();
         grid.main();
     };
@@ -23,11 +23,18 @@ public class GolUI extends UI {
     public String requestPlayerName(){
         TextFieldGetData field = new TextFieldGetData();
         field.start(stage);
-        return field.playerName;
+        return field.awaitReturnValue();
     }
 
-    //abstract void getPlayerCellCreation();
+    @Override
+    public Coordinates requestPlayerCellCreation() {
+        return null;
+    }
 
-    //abstract void getPlayerCellDeletion();
+    @Override
+    public Coordinates requestPlayerCellDeletion() {
+        return null;
+    }
+
 
 }
