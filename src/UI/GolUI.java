@@ -14,14 +14,13 @@ public class GolUI extends UI {
         grid.main();
     };
 
+    //Static way of getting input
 //    public String requestPlayerName(){
 //          TextFieldGetData.main();
 //          return TextFieldGetData.playerName;
 //    }
 
     public String requestPlayerName(){
-//        TextFieldGetData.main();
-//        TextFieldGetData.playerName;
         TextFieldGetData field = new TextFieldGetData();
         field.start(stage);
         return field.playerName;
