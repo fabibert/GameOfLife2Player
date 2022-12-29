@@ -11,5 +11,13 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         GolUI ui = new GolUI(stage);
+        String name = ui.requestPlayerName();
+        System.out.println(name);
+    }
+}
+
+class MyLauncher {
+    public static void main(String[] args) {
+        Main.main(args);
     }
 }
