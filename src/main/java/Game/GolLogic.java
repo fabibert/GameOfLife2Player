@@ -3,12 +3,18 @@ package Game;
 import State.GolState;
 import UI.GolUI;
 
-public abstract class GolLogic {
+public class GolLogic implements GameLogic {
     GolState state;
     GolUI ui;
     Verifier veri;
     Regeneration reg;
 
-    abstract void run();
+    public GolLogic(GolUI ui, GolState state){
+
+    }
+
+    public void run(){
+
+    }
 
 }

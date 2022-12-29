@@ -1,5 +1,5 @@
 package State;
 
-public interface StateBuilder {
-    void createState();
+public interface StateBuilder<S extends State> {
+    S createState(String player1, String player2);
 }

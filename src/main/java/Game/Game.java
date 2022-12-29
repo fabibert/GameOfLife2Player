@@ -1,18 +1,35 @@
 package Game;
 
 import UI.UI;
+import State.State;
+import State.StateBuilder;
 
-public abstract class Game<T extends UI>{
+import java.util.Objects;
 
-    T ui;
+public abstract class Game<U extends UI, S extends State>{
+
+    private U ui;
+    private StateBuilder<S> stateBuilder;
+    private S state;
 
     //GameInitializer<T> initializer;
 
-    public Game(T ui){
+    public Game(U ui, StateBuilder<S> stateBuilder){
         this.ui = ui;
+        this.stateBuilder = stateBuilder;
     }
 
-    abstract void initGame();
+    public void start(){
+        String name1 = ui.requestPlayerName();
+        String name2 = ui.requestPlayerName();
+        while (Objects.equals(name1, name2)){
+            name2 = ui.requestPlayerName();
+        }
+        state = stateBuilder.createState(name1, name2);
+        GameLogic gameLogic = createGameLogic(ui, state);
+        gameLogic.run();
+    }
 
-    abstract void start();
+    protected abstract GameLogic createGameLogic(U ui, S state);
+
 }

@@ -1,5 +1,10 @@
 package State;
 
-public class GolBoard implements Board{
-    Cell[][] board;
+public abstract class GolBoard implements Board<GolCell>{
+    GolCell[][] board;
+
+
+    public abstract GolCell[][] getArray();
+
+    public abstract void setArray(GolCell[][] array);
 }
