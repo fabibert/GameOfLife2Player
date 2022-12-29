@@ -8,6 +8,8 @@ import static com.sun.javafx.application.PlatformImpl.runLater;
 public class GolUIImpl implements GolUI {
     Stage stage;
 
+    //should consistently display a Grid
+    //update grid if we pass state
 
     public GolUIImpl(Stage stage){
         this.stage = stage;
@@ -37,6 +39,18 @@ public class GolUIImpl implements GolUI {
         //displayState
         GridUI grid = new GridUI(state);
         grid.start(stage);
+        //runLater(() -> grid.start(stage));
+        //List<Integer> indices = grid.awaitReturnValue();
+        //System.out.println(indices);
+    }
+
+    public void getClickedField(EncapsulatedGolState state) {
+        //displayState
+        GridUI grid = new GridUI(state);
+        grid.start(stage);
+        //runLater(() -> grid.start(stage));
+        //List<Integer> indices = grid.awaitReturnValue();
+        //System.out.println(indices);
     }
 }
 

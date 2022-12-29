@@ -31,7 +31,7 @@ public class GolUIImplTest extends Application {
 
         board.setCellToPlayer(1,1, player1.playerName());
         board.setCellToPlayer(3,3, player1.playerName());
-        board.setCellToPlayer(5,4, player1.playerName());
+        board.setCellToPlayer(5,4, player2.playerName());
         state = new EncapsulatedGolState(Map.of(player1, 4, player2, 3), board, 3, player1);
 
         testRecieveGolStateEncapsulated();
@@ -41,6 +41,11 @@ public class GolUIImplTest extends Application {
     void testRecieveGolStateEncapsulated() {
         ui.recieveGolStateEncapsulated(state);
     }
+
+    @Test
+    void testRequestClickLocation(){
+
+    }
 }
 
 
@@ -49,27 +54,3 @@ class MyLauncher {
         GolUIImplTest.main(args);
     }
 }
-
-
-
-//    GolUI ui;
-//    EncapsulatedGolState state;
-//    GolGame game;
-//
-//    @BeforeEach
-//    public void setUp() {
-//        launch();
-//    }
-//
-//    @Override
-//    public void start(Stage stage) throws Exception {
-//        ui = new GolUIImpl(stage);
-//        Player player1 = new Player("Fabio");
-//        Player player2 = new Player("Joe");
-//        state = new EncapsulatedGolState(Map.of(player1, 4, player2, 3), new GolBoardImpl(10, 10), 3, player1);
-//    }
-//
-//    @Test
-//    void recieveGolStateEncapsulated() {
-//        ui.recieveGolStateEncapsulated(state);
-//    }

@@ -13,7 +13,6 @@ public class GolGame extends Game<GolUI, GolState>{
 
     @Override
     public void start() {
-
         super.start();
     }
 
