@@ -1,39 +1,34 @@
 package UI;
 
+import javafx.stage.Stage;
+
 public class GolUI extends UI {
+    Stage stage;
 
-    public GolUI(){
-
+    public GolUI(Stage stage){
+        this.stage = stage;
     }
+
     void displayState(){
         GridUI grid = new GridUI();
         grid.main();
     };
 
+//    public String requestPlayerName(){
+//          TextFieldGetData.main();
+//          return TextFieldGetData.playerName;
+//    }
+
     public String requestPlayerName(){
-//        CountDownLatch latch = new CountDownLatch(1);
-//        //TextFieldGetData field = new TextFieldGetData(latch);
-//        Stage stage = new Stage();
 //        TextFieldGetData.main();
-//        String playerName = null;
-//        try {
-//            playerName = field.awaitReturnValue();
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return playerName;
-        return " ";
+//        TextFieldGetData.playerName;
+        TextFieldGetData field = new TextFieldGetData();
+        field.start(stage);
+        return field.playerName;
     }
 
     //abstract void getPlayerCellCreation();
 
     //abstract void getPlayerCellDeletion();
 
-}
-class MyLaunchey {
-    public static void main(String[] args){
-        GolUI ui = new GolUI();
-        //ui.requestPlayerName();
-        ui.displayState();
-    }
 }

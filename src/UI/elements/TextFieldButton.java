@@ -5,6 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 public class TextFieldButton extends Button {
+    public String playerName;
 
     public TextFieldButton(TextField textField, Text text) {
         super("Submit");
@@ -15,7 +16,8 @@ public class TextFieldButton extends Button {
 
     private void playerInteraction(TextField textField1, Text text) {
         String playerName = textField1.getText();
-        text.setText("Hello "+playerName+". Thank your for playing with us!");
+        text.setText("Hello " + playerName + ". Thank your for playing with us!");
+        this.playerName = playerName;
         //setReturnValue(playerName);
     }
 

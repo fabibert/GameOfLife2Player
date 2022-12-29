@@ -19,7 +19,6 @@ public class GridUI extends Application {
     //replace boolean property with red blue and white
     private StackPane createCell(GolCell cellSwitch, List<Player> playersList) {
         StackPane cell = new StackPane();
-
         Rectangle rectangle;
         //color depending on player //implemented only for 2 players
         if (cellSwitch.isAlive()) {
@@ -31,7 +30,6 @@ public class GridUI extends Application {
         else{
             rectangle = new Rectangle(40, 40, Color.WHITE);
         }
-
         cell.getChildren().add(rectangle);
         cell.getStyleClass().add("cell");
         return cell;
@@ -40,7 +38,7 @@ public class GridUI extends Application {
     private GridPane createGrid(GolBoardImpl board, List<Player> playersList) {
         int numCols = board.getBoardHeight();
         int numRows = board.getBoardWidth();
-        
+
         GridPane grid = new GridPane();
 
         //adjust scale to zooming
@@ -64,7 +62,6 @@ public class GridUI extends Application {
                 grid.add(createCell(board.getCell(x,y), playersList), x, y);
             }
         }
-
         grid.getStyleClass().add("grid");
         return grid;
     }

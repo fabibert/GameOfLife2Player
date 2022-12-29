@@ -2,18 +2,28 @@ package UI;
 
 
 import State.GolBoardImpl;
+import javafx.application.Application;
+import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class GolUITest {
-
+class GolUITest extends Application {
+    GolUI ui;
     GolBoardImpl board = new GolBoardImpl(10,10);
+    public static void main(String[] args) {
+        System.out.println("Hello world!");
+        launch();
+    }
+    public void start(Stage stage) throws Exception {
+        ui = new GolUI(stage);
+        String playerName = ui.requestPlayerName();
+        assertEquals("Fabio", playerName);
+    }
 
 
     @Test
     void displayState() {
-        GolUI ui = new GolUI();
         //pass board to be implemented
         ui.displayState();
         //board.setCellToPlayer(3,3, "Fabio");
@@ -21,7 +31,6 @@ class GolUITest {
 
     @Test
     void requestPlayerName() {
-        GolUI ui = new GolUI();
         String playerName = ui.requestPlayerName();
         assertEquals("Fabio", playerName);
     }
