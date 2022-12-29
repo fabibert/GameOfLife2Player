@@ -1,5 +1,6 @@
 package UI;
 
+import State.EncapsulatedGolState;
 import State.GolBoardImpl;
 import State.GolCell;
 import State.Player;
@@ -15,6 +16,11 @@ import javafx.stage.Stage;
 import java.util.List;
 
 public class GridUI extends Application {
+    EncapsulatedGolState state;
+
+    public GridUI(EncapsulatedGolState state) {
+        this.state = state;
+    }
 
     //replace boolean property with red blue and white
     private StackPane createCell(GolCell cellSwitch, List<Player> playersList) {
@@ -50,11 +56,14 @@ public class GridUI extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        //this should be passed
+        //EncapsulatedGolState state = new EncapsulatedGolState(Map.of(), new GolBoardImpl(10,10), 3, new Player("Fabio"));
         //later pass GolBoardImpl and playersList
-        List<Player> playersList = List.of(new Player("Fabio"), new Player("Joe"));
-        GolBoardImpl board = createMockBoard(playersList);
+        //List<Player> playersList = List.of(new Player("Fabio"), new Player("Joe"));
+        //GolBoardImpl board = createMockBoard(playersList);
 
-        GridPane grid = createGrid(board, playersList);
+
+        GridPane grid = createGrid((GolBoardImpl) state.board(), state.playersToScore().keySet().stream().toList());
         primaryStage.setScene(getScene(grid));
         primaryStage.show();
 
@@ -123,17 +132,6 @@ public class GridUI extends Application {
     public void LocateClick(GridPane grid){
 
     }
-
-
-    public static void main() {
-        launch();
-    }
 }
-
-//class MyLaunch {
-//    public static void main(String[] args){
-//        GridUI.main();
-//    }
-//}
 
 

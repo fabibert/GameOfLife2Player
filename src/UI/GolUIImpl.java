@@ -3,8 +3,6 @@ package UI;
 import State.EncapsulatedGolState;
 import javafx.stage.Stage;
 
-import java.awt.*;
-
 import static com.sun.javafx.application.PlatformImpl.runLater;
 
 public class GolUIImpl implements GolUI {
@@ -15,21 +13,12 @@ public class GolUIImpl implements GolUI {
         this.stage = stage;
     }
 
-    public void displayState(){
-        GridUI grid = new GridUI();
-        grid.main();
-    };
-
-    //Static way of getting input
-//    public String requestPlayerName(){
-//          TextFieldGetData.main();
-//          return TextFieldGetData.playerName;
-//    }
-
     public String requestPlayerName(){
         TextFieldGetData field = new TextFieldGetData();
         runLater(() -> field.start(stage));
-        return field.awaitReturnValue();
+        String name = field.awaitReturnValue();
+        System.out.println(name);
+        return name;
     }
 
     @Override
@@ -46,5 +35,10 @@ public class GolUIImpl implements GolUI {
     @Override
     public void recieveGolStateEncapsulated(EncapsulatedGolState state) {
         //displayState
+        GridUI grid = new GridUI(state);
+        grid.start(stage);
     }
 }
+
+
+
