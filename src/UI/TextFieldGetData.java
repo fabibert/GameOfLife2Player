@@ -1,8 +1,8 @@
 package UI;
 
-import UI.elements.TextFieldButton;
-import UI.elements.TextFieldHBox;
-import UI.elements.TextFieldText;
+import UI.textElements.TextFieldButton;
+import UI.textElements.TextFieldHBox;
+import UI.textElements.TextFieldText;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

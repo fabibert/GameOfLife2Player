@@ -1,4 +1,4 @@
-package UI.elements;
+package UI.textElements;
 
 import UI.TextFieldGetData;
 import javafx.scene.control.Button;

@@ -1,4 +1,4 @@
-package UI.elements;
+package UI.textElements;
 
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;

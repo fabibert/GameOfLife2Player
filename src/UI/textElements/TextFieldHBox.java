@@ -1,4 +1,4 @@
-package UI.elements;
+package UI.textElements;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
