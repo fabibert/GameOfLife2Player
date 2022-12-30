@@ -9,6 +9,7 @@ import static com.sun.javafx.application.PlatformImpl.runLater;
 
 public class GolUIImpl implements GolUI {
     Stage stage;
+    GridUI gridUi;
 
     //should consistently display a Grid
     //update grid if we pass state
@@ -27,32 +28,34 @@ public class GolUIImpl implements GolUI {
 
     @Override
     public Coordinates requestPlayerCellCreation() {
-        return null;
+        //display creation request
+        return getClickedField();
     }
 
     @Override
     public Coordinates requestPlayerCellDeletion() {
-        return null;
+        //display deletion request
+        return getClickedField();
     }
 
 
     @Override
     public void recieveGolStateEncapsulated(EncapsulatedGolState state) {
-        //displayState
-        GridUI grid = new GridUI(state);
-        //grid.start(stage);
-        runLater(() -> grid.start(stage));
-        List<Integer> indices = grid.awaitReturnValue();
-        System.out.println("Passed out: " + indices);
+        if(gridUi == null){
+            gridUi = new GridUI(state);
+            runLater(() -> gridUi.start(stage));
+        }
+        else{
+            runLater(() -> gridUi.update(state));
+        }
     }
 
-    public void getClickedField(EncapsulatedGolState state) {
-        //displayState
-        GridUI grid = new GridUI(state);
-        grid.start(stage);
-        //runLater(() -> grid.start(stage));
-        //List<Integer> indices = grid.awaitReturnValue();
-        //System.out.println(indices);
+    public Coordinates getClickedField() {
+        //set boolean value on grid
+        gridUi.setListening(true);
+        List<Integer> indices = gridUi.awaitReturnValue();
+        System.out.println("Passed out: " + indices);
+        return new Coordinates(indices.get(0), indices.get(1));
     }
 }
 

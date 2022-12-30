@@ -24,6 +24,7 @@ public class GridUI {
     private List<Integer> indices = List.of();
 
     private CountDownLatch countDownLatch;
+    private boolean listening;
     //public static String playerName = "default";
 
     public GridUI(EncapsulatedGolState state) {
@@ -36,6 +37,10 @@ public class GridUI {
         //grid.addEventHandler(MouseEvent.MOUSE_CLICKED, this::locateClickOnGrid);
         primaryStage.setScene(getScene(grid));
         primaryStage.show();
+    }
+
+    public void update( EncapsulatedGolState state){
+        setCellsFromBoardToGrid((GolBoardImpl) state.board(), grid, state.playersToScore().keySet().stream().toList());
     }
 
     private GridPane createGrid(GolBoardImpl board, List<Player> playersList) {
@@ -69,10 +74,12 @@ public class GridUI {
     }
 
     void locateClickOnGrid(Node node){
-        Integer colIndex = GridPane.getColumnIndex(node);
-        Integer rowIndex = GridPane.getRowIndex(node);
-        //System.out.println((colIndex)+ ":" + (rowIndex));
-        setReturnValue(List.of(colIndex,rowIndex));
+        if(listening) {
+            Integer colIndex = GridPane.getColumnIndex(node);
+            Integer rowIndex = GridPane.getRowIndex(node);
+            //System.out.println((colIndex)+ ":" + (rowIndex));
+            setReturnValue(List.of(colIndex, rowIndex));
+        }
     }
 
 //    void locateClickOnGrid(MouseEvent e){
@@ -86,6 +93,7 @@ public class GridUI {
     public void setReturnValue(List<Integer> indices){
         this.indices = indices;
         countDownLatch.countDown();
+        this.listening = false;
     }
 
     public List<Integer> awaitReturnValue() {
@@ -94,7 +102,6 @@ public class GridUI {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        countDownLatch = new CountDownLatch(1);
         return indices;
     }
 
@@ -103,6 +110,11 @@ public class GridUI {
         Scene scene = new Scene(root, 600, 600);
         scene.getStylesheets().add("grid-with-borders.css");
         return scene;
+    }
+
+    public void setListening(boolean listening) {
+        this.listening = listening;
+        countDownLatch = new CountDownLatch(1);
     }
 }
 
