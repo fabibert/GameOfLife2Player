@@ -64,7 +64,7 @@ public class GridUI {
         //add cells to grid
         for (int x = 0 ; x < board.getBoardWidth() ; x++) {
             for (int y = 0 ; y < board.getBoardHeight() ; y++) {
-                Rectangle rectangle = new RectangleWithColorFromOccupyingPlayer(board.getCell(x,y), playersList);
+                Rectangle rectangle = new RectangleWithColorFromOccupyingPlayer(board.getCell(new Coordinates(x,y)), playersList);
                 StackPane node = new StackPaneCell(rectangle);
                 rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> locateClickOnGrid(node));
                 node.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> locateClickOnGrid(node));

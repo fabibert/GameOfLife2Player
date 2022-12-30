@@ -8,14 +8,13 @@ public class GolStateImpl implements GolState{
 
     private List<Observer> observers;
     private int numberOfGenerations = 0;
+
     //TODO: here use interface
     private GolBoard board;
 
 
 
-    public GolStateImpl(String player1Name, String player2Name, GolBoard board) {
-        Player player1 = new Player(player1Name);
-        Player player2 = new Player(player2Name);
+    public GolStateImpl(Player player1, Player player2, GolBoard board) {
         players = List.of(player1, player2);
         this.board = board;
         observers = new ArrayList<Observer>();
@@ -34,6 +33,7 @@ public class GolStateImpl implements GolState{
 
     @Override
     public void setBoard(GolBoard board) {
+        //TODO: avoid reference leaking
         this.board = board;
         updateObservers();
     }

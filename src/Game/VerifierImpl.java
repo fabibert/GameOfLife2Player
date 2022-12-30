@@ -19,7 +19,7 @@ public class VerifierImpl implements Verifier {
         //
         Player currentPlayer = state.getCurrentPlayer();
         GolBoard board = state.getBoard();
-        GolCell cell = board.getCell(coordinates.x(), coordinates.y());
+        GolCell cell = board.getCell(coordinates);
         return cell.isAlive() && !cell.getPlayer().equals(currentPlayer);
     }
 
@@ -27,7 +27,7 @@ public class VerifierImpl implements Verifier {
     public boolean verifyCellCreation(Coordinates coordinates) {
         Player currentPlayer = state.getCurrentPlayer();
         GolBoard board = state.getBoard();
-        GolCell cell = board.getCell(coordinates.x(), coordinates.y());
+        GolCell cell = board.getCell(coordinates);
         return !cell.isAlive();
     }
 }

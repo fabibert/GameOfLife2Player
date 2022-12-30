@@ -22,7 +22,7 @@ class GolGameTest {
     @BeforeEach
     public void setUp(){
         openMocks(this);
-        state = new GolStateImpl("", "", new GolBoardImpl(10, 10));
+        state = new GolStateImpl(new Player("Fabio"), new Player("Joe"), new GolBoardImpl(10, 10));
         game = new GolGame(gameOfLifeUI, builder);
     }
 

@@ -39,7 +39,7 @@ public class GolLogic implements GameLogic {
             creationCoordinates = ui.requestPlayerCellCreation();
         }
         GolBoard board = state.getBoard();
-        board.setCellToPlayer(creationCoordinates.x(), creationCoordinates.y(), state.getCurrentPlayer().playerName());
+        board.setCellToPlayer(creationCoordinates, state.getCurrentPlayer());
         state.setBoard(board);
     }
 
@@ -49,7 +49,7 @@ public class GolLogic implements GameLogic {
             deletionCoordinates = ui.requestPlayerCellDeletion();
         }
         GolBoard board = state.getBoard();
-        board.setCellEmpty(deletionCoordinates.x(), deletionCoordinates.y());
+        board.setCellEmpty(deletionCoordinates);
         state.setBoard(board);
     }
 }

@@ -1,13 +1,25 @@
 package state;
 
+import UI.Coordinates;
+
 public class GolStateBuilder implements StateBuilder<GolState> {
     @Override
-    public GolState createState(String player1, String player2) {
+    public GolState createState(String playerName1, String playerName2) {
+        Player player1 = new Player(playerName1);
+        Player player2 = new Player(playerName2);
         GolBoardImpl golBoard = new GolBoardImpl(10, 10);
         //TODO use set intial pattern function on board
-        golBoard.setCellToPlayer(1,1, player1);
-        golBoard.setCellToPlayer(2,2, player1);
-        golBoard.setCellToPlayer(4,4, player2);
+        setInitialPattern(player1, player2, golBoard);
         return new GolStateImpl(player1, player2, golBoard);
     }
+
+    private static void setInitialPattern(Player player1, Player player2, GolBoardImpl golBoard) {
+        golBoard.setCellToPlayer(new Coordinates(1,1), player1);
+        golBoard.setCellToPlayer(new Coordinates(2,2), player1);
+        golBoard.setCellToPlayer(new Coordinates(6,4), player2);
+        golBoard.setCellToPlayer(new Coordinates(5,5), player2);
+    }
+
+
 }
+

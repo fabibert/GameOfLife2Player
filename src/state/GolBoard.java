@@ -1,27 +1,16 @@
 package state;
 
-import java.util.Optional;
+import UI.Coordinates;
 
-public abstract class GolBoard implements Board<GolCell>{
-    GolCell[][] board;
+public interface GolBoard extends Board<GolCell>{
+    void setCellToPlayer(Coordinates coordinates, Player player);
+    
+    void setCellEmpty(Coordinates coordinates);
 
-    //TODO: accept coordinates
-    //TODO: pass player instead of PlayerName
-    public void setCellToPlayer(int x, int y, String name) {
-        board[x][y] = new GolCell(Optional.of(new Player(name)));
-    }
+    GolCell getCell(Coordinates coordinates);
 
-    //TODO: accept coordinates
-    public void setCellEmpty(int x, int y) {
-        board[x][y] = new GolCell(Optional.empty());
-    }
+    int getBoardHeight();
 
-    //TODO: accept coordinates
-    public GolCell getCell(int x, int y) {
-        return board[x][y];
-    }
+    int getBoardWidth();
 
-    public abstract GolCell[][] getArray();
-
-    public abstract void setArray(GolCell[][] array);
 }

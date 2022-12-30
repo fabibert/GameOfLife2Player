@@ -1,20 +1,29 @@
 package state;
 
+import UI.Coordinates;
+
 import java.util.Arrays;
 import java.util.Optional;
 
-public class GolBoardImpl extends GolBoard {
+public class GolBoardImpl implements GolBoard {
+
+    GolCell[][] board;
 
     //TODO: merge class with GolBoard or GolBoard interface only
     int boardHeight;
     int boardWidth;
 
+
+    //init board with other board
     public GolBoardImpl(GolCell[][] board){
-        super.board = board;
+        //TODO: ensure no reference leakage
+        //ensure that a copy of the argument board is used
+        this.board = board;
         this.boardHeight = board.length;
         this.boardWidth = board[0].length;
     }
 
+    //init fresh board
     public GolBoardImpl(int boardHeight,int boardWidth){
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
@@ -23,14 +32,15 @@ public class GolBoardImpl extends GolBoard {
             Arrays.fill(row, new GolCell(Optional.empty()));
     }
 
-    public int getBoardHeight(){
-        return boardHeight;
+    @Override
+    public void setCellToPlayer(Coordinates coordinates, Player player) {
+        board[coordinates.x()][coordinates.y()] = new GolCell(Optional.of(player));
     }
 
-    public int getBoardWidth(){
-        return boardWidth;
+    @Override
+    public void setCellEmpty(Coordinates coordinates) {
+        board[coordinates.x()][coordinates.y()] = new GolCell(Optional.empty());
     }
-
 
     @Override
     public GolCell[][] getArray(){
@@ -39,14 +49,32 @@ public class GolBoardImpl extends GolBoard {
 
     @Override
     public void setArray(GolCell[][] array){
+        //TODO: implement set array
+    }
+
+    @Override
+    public GolCell getCell(Coordinates coordinates) {
+        return board[coordinates.x()][coordinates.y()];
+    }
+
+    @Override
+    public int getBoardHeight(){
+        return boardHeight;
+    }
+
+    @Override
+    public int getBoardWidth(){
+        return boardWidth;
     }
 }
 
+
+//launcher to look at board
 class MyLaunch {
     public static void main(String[] args){
         GolBoardImpl board = new GolBoardImpl(10,10);
-        board.setCellToPlayer(1,1, "Fabio");
-        System.out.println(board.getCell(1,1));
+        board.setCellToPlayer(new Coordinates(1,1), new Player("Fabio"));
+        System.out.println(board.getCell(new Coordinates(1,1)));
     }
 }
 
