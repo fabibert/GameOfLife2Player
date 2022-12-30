@@ -1,9 +1,9 @@
-package State;
+package state;
 
 
 public interface Observable {
 
-    void updateObservers(EncapsulatedGolState state);
+    void updateObservers();
 
     void addObserver(Observer observer);
 

@@ -1,6 +1,9 @@
 package Game;
 
+import UI.Coordinates;
+
 public interface Verifier {
-    boolean verifyCellDeletion();
-    boolean verifyCellCreation();
+    boolean verifyCellDeletion(Coordinates coordinates);
+
+    boolean verifyCellCreation(Coordinates coordinates);
 }

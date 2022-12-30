@@ -1,9 +1,9 @@
 package UI;
 
 import Game.GolGame;
-import State.EncapsulatedGolState;
-import State.GolBoardImpl;
-import State.Player;
+import state.EncapsulatedGolState;
+import state.GolBoardImpl;
+import state.Player;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
@@ -58,7 +58,6 @@ public class GolUIImplTest extends Application {
             ui.recieveGolStateEncapsulated(state2);
             System.out.println(coord.x() + " " + coord.y());
         }).start();
-
     }
 
     @Test

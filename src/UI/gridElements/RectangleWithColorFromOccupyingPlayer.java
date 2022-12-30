@@ -1,7 +1,7 @@
 package UI.gridElements;
 
-import State.GolCell;
-import State.Player;
+import state.GolCell;
+import state.Player;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 

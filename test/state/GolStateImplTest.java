@@ -1,0 +1,8 @@
+package state;
+
+class GolStateImplTest {
+
+
+
+
+}

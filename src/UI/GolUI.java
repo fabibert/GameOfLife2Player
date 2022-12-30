@@ -1,6 +1,6 @@
 package UI;
 
-import State.Observer;
+import state.Observer;
 
 public interface GolUI extends UI, Observer {
 

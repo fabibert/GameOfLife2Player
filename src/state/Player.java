@@ -1,3 +1,3 @@
-package State;
+package state;
 
 public record Player(String playerName){}

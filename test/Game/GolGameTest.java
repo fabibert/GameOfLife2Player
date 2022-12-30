@@ -1,7 +1,7 @@
 package Game;
 
 
-import State.*;
+import state.*;
 import UI.GolUI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ class GolGameTest {
     void testThatUiIsAddedAsAnObserver() {
         game.initObserverPattern(gameOfLifeUI, state);
         EncapsulatedGolState encapsulatedState = new EncapsulatedGolState(null, null, 0, null);
-        state.updateObservers(encapsulatedState);
+        state.updateObservers();
         Mockito.verify(gameOfLifeUI).recieveGolStateEncapsulated(encapsulatedState);
     }
 }

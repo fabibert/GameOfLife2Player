@@ -1,8 +1,8 @@
 package Game;
 
 import UI.UI;
-import State.State;
-import State.StateBuilder;
+import state.State;
+import state.StateBuilder;
 
 import java.util.Objects;
 

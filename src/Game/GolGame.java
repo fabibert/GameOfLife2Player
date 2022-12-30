@@ -1,7 +1,7 @@
 package Game;
 
-import State.GolState;
-import State.StateBuilder;
+import state.GolState;
+import state.StateBuilder;
 import UI.GolUI;
 
 public class GolGame extends Game<GolUI, GolState>{

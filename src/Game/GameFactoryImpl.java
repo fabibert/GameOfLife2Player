@@ -1,6 +1,6 @@
 package Game;
 
-import State.GolStateBuilder;
+import state.GolStateBuilder;
 import UI.GolUIImpl;
 import javafx.stage.Stage;
 

@@ -1,13 +1,17 @@
-package State;
+package state;
 
 import java.util.Arrays;
 import java.util.Optional;
 
 public class GolBoardImpl extends GolBoard {
 
-    GolCell[][] board;
+    //TODO: merge class with GolBoard or GolBoard interface only
     int boardHeight;
     int boardWidth;
+
+    public GolBoardImpl(GolCell[][] board){
+        super.board = board;
+    }
 
     public GolBoardImpl(int boardHeight,int boardWidth){
         this.boardHeight = boardHeight;
@@ -25,22 +29,10 @@ public class GolBoardImpl extends GolBoard {
         return this.boardWidth;
     }
 
-    public void setCellToPlayer(int x,int y, String name) {
-        board[x][y] = new GolCell(Optional.of(new Player(name)));
-    }
-
-    public void setCellEmpty(int x,int y) {
-        board[x][y] = new GolCell(Optional.empty());
-    }
-
-
-    public GolCell getCell(int x, int y) {
-        return board[x][y];
-    }
 
     @Override
     public GolCell[][] getArray(){
-        return new GolCell[0][];
+        return Arrays.stream(board).map(arr -> Arrays.copyOf(arr, arr.length)).toArray(GolCell[][]::new);
     }
 
     @Override

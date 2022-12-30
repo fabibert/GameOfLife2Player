@@ -1,9 +1,9 @@
 package UI;
 
-import State.EncapsulatedGolState;
-import State.GolBoardImpl;
-import State.GolCell;
-import State.Player;
+import state.EncapsulatedGolState;
+import state.GolBoardImpl;
+import state.GolCell;
+import state.Player;
 import UI.gridElements.BorderedGrid;
 import UI.gridElements.RectangleWithColorFromOccupyingPlayer;
 import UI.gridElements.StackPaneCell;
@@ -23,13 +23,15 @@ public class GridUI {
     GridPane grid;
     private List<Integer> indices = List.of();
 
-    private CountDownLatch countDownLatch;
+    private CountDownLatch countDownLatchAwaitClick;
+    private CountDownLatch countDownLatchAwaitCreation;
     private boolean listening;
     //public static String playerName = "default";
 
-    public GridUI(EncapsulatedGolState state) {
+    public GridUI(EncapsulatedGolState state, CountDownLatch countDownLatchCreation) {
         this.state = state;
-        countDownLatch = new CountDownLatch(1);
+        countDownLatchAwaitClick = new CountDownLatch(1);
+        countDownLatchAwaitCreation = countDownLatchCreation;
     }
 
     public void start(Stage primaryStage) {
@@ -37,6 +39,7 @@ public class GridUI {
         //grid.addEventHandler(MouseEvent.MOUSE_CLICKED, this::locateClickOnGrid);
         primaryStage.setScene(getScene(grid));
         primaryStage.show();
+        countDownLatchAwaitCreation.countDown();
     }
 
     public void update( EncapsulatedGolState state){
@@ -92,13 +95,13 @@ public class GridUI {
 
     public void setReturnValue(List<Integer> indices){
         this.indices = indices;
-        countDownLatch.countDown();
+        countDownLatchAwaitClick.countDown();
         this.listening = false;
     }
 
     public List<Integer> awaitReturnValue() {
         try {
-            countDownLatch.await();
+            countDownLatchAwaitClick.await();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -114,7 +117,7 @@ public class GridUI {
 
     public void setListening(boolean listening) {
         this.listening = listening;
-        countDownLatch = new CountDownLatch(1);
+        countDownLatchAwaitClick = new CountDownLatch(1);
     }
 }
 

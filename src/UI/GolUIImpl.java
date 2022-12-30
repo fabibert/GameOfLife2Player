@@ -1,9 +1,10 @@
 package UI;
 
-import State.EncapsulatedGolState;
+import state.EncapsulatedGolState;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import static com.sun.javafx.application.PlatformImpl.runLater;
 
@@ -13,9 +14,11 @@ public class GolUIImpl implements GolUI {
 
     //should consistently display a Grid
     //update grid if we pass state
+    CountDownLatch countDownLatch;
 
     public GolUIImpl(Stage stage){
         this.stage = stage;
+        this.countDownLatch = new CountDownLatch(1);
     }
 
     public String requestPlayerName(){
@@ -42,7 +45,7 @@ public class GolUIImpl implements GolUI {
     @Override
     public void recieveGolStateEncapsulated(EncapsulatedGolState state) {
         if(gridUi == null){
-            gridUi = new GridUI(state);
+            gridUi = new GridUI(state, countDownLatch);
             runLater(() -> gridUi.start(stage));
         }
         else{
@@ -52,6 +55,11 @@ public class GolUIImpl implements GolUI {
 
     public Coordinates getClickedField() {
         //set boolean value on grid
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         gridUi.setListening(true);
         List<Integer> indices = gridUi.awaitReturnValue();
         System.out.println("Passed out: " + indices);

@@ -1,6 +1,7 @@
-package State;
+package state;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ public class GolStateImpl implements GolState{
 
     private List<Observer> observers;
     private int numberOfGenerations = 0;
+    //TODO: here use interface
     private GolBoard board;
 
 
@@ -29,13 +31,14 @@ public class GolStateImpl implements GolState{
 
     @Override
     public GolBoard getBoard() {
-        return board;
+        //TODO: safe copy board and pass back copy
+        return new GolBoardImpl(board.getArray());
     }
 
     @Override
     public void setBoard(GolBoard board) {
         this.board = board;
-        updateObservers(new EncapsulatedGolState(Map.of(), board,1, getCurrentPlayer()));
+        updateObservers();
     }
 
     @Override
@@ -56,11 +59,17 @@ public class GolStateImpl implements GolState{
 
 
     @Override
-    public void updateObservers(EncapsulatedGolState state) {
+    public void updateObservers() {
+        Map<Player, Integer> playerToScore = new HashMap<>(); // TODO: update
+        EncapsulatedGolState encapsulatedGolState = new EncapsulatedGolState(playerToScore, getBoard(),getNumberOfGenerations(), getCurrentPlayer());
         for(Observer observer: observers){
-            observer.recieveGolStateEncapsulated(state);
+            observer.recieveGolStateEncapsulated(encapsulatedGolState);
         }
     }
+
+    // TODO: implement cell counting method in the cell by going over board copy
+    //method: take playersList and go over current board counting cells
+
 
     @Override
     public void removeObserver(Observer observer) {
