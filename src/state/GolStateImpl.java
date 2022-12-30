@@ -1,9 +1,6 @@
 package state;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GolStateImpl implements GolState{
 
@@ -60,7 +57,12 @@ public class GolStateImpl implements GolState{
 
     @Override
     public void updateObservers() {
-        Map<Player, Integer> playerToScore = new HashMap<>(); // TODO: update
+        Map<Player, Integer> playerToScore = new HashMap<>();
+        players.forEach(p -> playerToScore.put(p, 0));
+        Arrays.stream(board.getArray())
+                .flatMap(Arrays::stream)
+                .filter(GolCell::isAlive)
+                .forEach(c -> playerToScore.put(getCurrentPlayer(), playerToScore.get(c.getPlayer())+1));
         EncapsulatedGolState encapsulatedGolState = new EncapsulatedGolState(playerToScore, getBoard(),getNumberOfGenerations(), getCurrentPlayer());
         for(Observer observer: observers){
             observer.recieveGolStateEncapsulated(encapsulatedGolState);

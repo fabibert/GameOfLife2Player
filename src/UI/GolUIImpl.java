@@ -60,7 +60,7 @@ public class GolUIImpl implements GolUI {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        runLater(() -> gridUi.setListening(true));
+        gridUi.setListening(true);
         List<Integer> indices = gridUi.awaitReturnValue();
         System.out.println("Passed out: " + indices);
         return new Coordinates(indices.get(0), indices.get(1));

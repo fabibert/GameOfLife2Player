@@ -36,7 +36,6 @@ public class GridUI {
 
     public void start(Stage primaryStage) {
         this.grid = createGrid((GolBoardImpl) state.board(), state.playersToScore().keySet().stream().toList());
-        //grid.addEventHandler(MouseEvent.MOUSE_CLICKED, this::locateClickOnGrid);
         primaryStage.setScene(getScene(grid));
         primaryStage.show();
         countDownLatchAwaitCreation.countDown();
@@ -80,7 +79,6 @@ public class GridUI {
         if(listening) {
             Integer colIndex = GridPane.getColumnIndex(node);
             Integer rowIndex = GridPane.getRowIndex(node);
-            //System.out.println((colIndex)+ ":" + (rowIndex));
             setReturnValue(List.of(colIndex, rowIndex));
         }
     }

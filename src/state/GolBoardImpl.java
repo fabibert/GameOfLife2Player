@@ -11,6 +11,8 @@ public class GolBoardImpl extends GolBoard {
 
     public GolBoardImpl(GolCell[][] board){
         super.board = board;
+        this.boardHeight = board.length;
+        this.boardWidth = board[0].length;
     }
 
     public GolBoardImpl(int boardHeight,int boardWidth){
@@ -22,11 +24,11 @@ public class GolBoardImpl extends GolBoard {
     }
 
     public int getBoardHeight(){
-        return this.boardHeight;
+        return boardHeight;
     }
 
     public int getBoardWidth(){
-        return this.boardWidth;
+        return boardWidth;
     }
 
 
