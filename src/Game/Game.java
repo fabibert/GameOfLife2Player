@@ -26,6 +26,7 @@ public abstract class Game<U extends UI, S extends State>{
             name2 = ui.requestPlayerName();
         }
         state = stateBuilder.createState(name1, name2);
+        initObserverPattern(ui, state);
         GameLogic gameLogic = createGameLogic(ui, state);
         gameLogic.run();
     }
