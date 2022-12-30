@@ -3,6 +3,8 @@ package UI;
 import State.EncapsulatedGolState;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 import static com.sun.javafx.application.PlatformImpl.runLater;
 
 public class GolUIImpl implements GolUI {
@@ -38,10 +40,10 @@ public class GolUIImpl implements GolUI {
     public void recieveGolStateEncapsulated(EncapsulatedGolState state) {
         //displayState
         GridUI grid = new GridUI(state);
-        grid.start(stage);
-        //runLater(() -> grid.start(stage));
-        //List<Integer> indices = grid.awaitReturnValue();
-        //System.out.println(indices);
+        //grid.start(stage);
+        runLater(() -> grid.start(stage));
+        List<Integer> indices = grid.awaitReturnValue();
+        System.out.println("Passed out: " + indices);
     }
 
     public void getClickedField(EncapsulatedGolState state) {

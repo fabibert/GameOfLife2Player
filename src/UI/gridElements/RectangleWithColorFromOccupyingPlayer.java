@@ -7,9 +7,9 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.List;
 
-public class RectangleWithColorFromOccupyingPlayer{
-    private Rectangle rectangle;
+public class RectangleWithColorFromOccupyingPlayer extends Rectangle{
     public RectangleWithColorFromOccupyingPlayer(GolCell golCell, List<Player> playersList) {
+        super(40, 40, Color.WHITE);
         setRectangleColorFromGolCell(golCell, playersList);
     }
 
@@ -17,22 +17,15 @@ public class RectangleWithColorFromOccupyingPlayer{
         if (golCell.isAlive()) {
             setRectangleColorFromPlayer(golCell, playersList);
         }
-        else{
-            this.rectangle = new Rectangle(40, 40, Color.WHITE);
-        }
     }
 
     private void setRectangleColorFromPlayer(GolCell golCell, List<Player> playersList){
         String cellOccupant = golCell.getPlayer().playerName();
-        if(cellOccupant == playersList.get(0).playerName())
-            this.rectangle = new Rectangle(40, 40, Color.BLUE);
-        else if (cellOccupant == playersList.get(1).playerName())
-            this.rectangle = new Rectangle(40, 40, Color.RED);
-        else//implement exception
-            this.rectangle = new Rectangle(40, 40, Color.WHITE);
-    }
-
-    public Rectangle getRectangle() {
-        return rectangle;
+        if(cellOccupant.equals(playersList.get(0).playerName()))
+            this.setFill(Color.BLUE);
+        else if (cellOccupant.equals(playersList.get(1).playerName()))
+            this.setFill(Color.RED);
+        else
+            throw new RuntimeException("Unknown player found in cell");
     }
 }

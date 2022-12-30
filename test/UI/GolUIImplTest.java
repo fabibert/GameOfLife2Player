@@ -39,7 +39,7 @@ public class GolUIImplTest extends Application {
 
     @Test
     void testRecieveGolStateEncapsulated() {
-        ui.recieveGolStateEncapsulated(state);
+        new Thread(() -> ui.recieveGolStateEncapsulated(state)).start();
     }
 
     @Test
