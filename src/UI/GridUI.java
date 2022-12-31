@@ -7,9 +7,13 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import state.EncapsulatedGolState;
 import state.GolBoardImpl;
@@ -43,7 +47,35 @@ public class GridUI {
         //Add Grid to pane
         //Add info to pane
         //SetScene to pane
-        primaryStage.setScene(getScene(grid));
+        this.text = new TextField();
+        Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 10);
+        text.setFont(font);
+        text.setMaxWidth(300);
+        //text.setTranslateX(15);
+        //text.setTranslateY(125);
+        //grnew GridPane()
+//        StackPane root = new StackPane(grid);
+//        StackPane parent = new StackPane(root, text);
+//        StackPane.setAlignment(grid, Pos.CENTER_LEFT);
+//        StackPane.setAlignment(text, Pos.CENTER_RIGHT);
+
+//        StackPane rootPane = new StackPane();
+//        Scene scene = new Scene(rootPane, 1000, 600);
+//        StackPane pane1 = new StackPane(grid);
+//        StackPane pane2 = new StackPane(text);
+//        rootPane.getChildren().addAll(pane1,pane2);
+//        StackPane.setAlignment(pane1, Pos.CENTER_RIGHT);
+//        StackPane.setAlignment(pane1, Pos.CENTER_LEFT);
+//        pane1.alignmentProperty();
+
+        BorderPane border = new BorderPane();
+        border.setCenter(grid);
+        border.setRight(text);
+
+        Scene scene = new Scene(border, 1000, 600);
+
+        scene.getStylesheets().add("grid-with-borders.css");
+        primaryStage.setScene(scene);
         primaryStage.show();
         countDownLatchAwaitCreation.countDown();
     }
@@ -115,7 +147,7 @@ public class GridUI {
     }
 
     Scene getScene(GridPane grid){
-        StackPane root = new StackPane(grid);
+        StackPane root = new StackPane(grid, text);
         Scene scene = new Scene(root, 600, 600);
         scene.getStylesheets().add("grid-with-borders.css");
         return scene;
