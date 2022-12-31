@@ -57,25 +57,27 @@ public class RegenerationImpl implements Regeneration {
         int x = coordinates.x();
         int y = coordinates.y();
 
-        neighbours += checkAlive(x - 1, y + 1);
-        neighbours += checkAlive(x, y + 1);
-        neighbours += checkAlive(x + 1, y + 1);
+        neighbours += checkAlive(x - 1, y + 1, player);
+        neighbours += checkAlive(x, y + 1, player);
+        neighbours += checkAlive(x + 1, y + 1, player);
 
-        neighbours += checkAlive(x - 1, y);
-        neighbours += checkAlive(x + 1, y);
+        neighbours += checkAlive(x - 1, y, player);
+        neighbours += checkAlive(x + 1, y, player);
 
-        neighbours += checkAlive(x - 1, y - 1);
-        neighbours += checkAlive(x, y - 1);
-        neighbours += checkAlive(x + 1, y - 1);
+        neighbours += checkAlive(x - 1, y - 1, player);
+        neighbours += checkAlive(x, y - 1, player);
+        neighbours += checkAlive(x + 1, y - 1, player);
 
         return neighbours;
     }
 
-    int checkAlive(int x, int y) {
+    int checkAlive(int x, int y, Player player) {
         if (x < 0 || golState.getBoard().getBoardWidth() <= x)
             return 0;
         if (y < 0 || golState.getBoard().getBoardWidth() <= y)
-            return 1;
-        return golState.getBoard().getCell(new Coordinates(x, y)).isAlive() ? 1 : 0;
+            return 0;
+        if (golState.getBoard().getCell(new Coordinates(x, y)).isAlive())
+            return golState.getBoard().getCell(new Coordinates(x, y)).getPlayer().equals(player)? 1 : 0;
+        return 0;
     }
 }
