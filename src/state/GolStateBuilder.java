@@ -14,12 +14,14 @@ public class GolStateBuilder implements StateBuilder<GolState> {
 
     //TODO: get initial pattern from user input
     private static void setInitialPattern(Player player1, Player player2, GolBoardImpl golBoard) {
+        golBoard.setCellToPlayer(new Coordinates(2,3), player1);
         golBoard.setCellToPlayer(new Coordinates(4,2), player1);
         golBoard.setCellToPlayer(new Coordinates(3,3), player1);
         golBoard.setCellToPlayer(new Coordinates(4,4), player1);
         golBoard.setCellToPlayer(new Coordinates(5,5), player2);
         golBoard.setCellToPlayer(new Coordinates(6,6), player2);
         golBoard.setCellToPlayer(new Coordinates(5,7), player2);
+        golBoard.setCellToPlayer(new Coordinates(7,6), player2);
     }
 
 
