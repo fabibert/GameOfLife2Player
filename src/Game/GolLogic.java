@@ -19,15 +19,13 @@ public class GolLogic implements GameLogic {
     }
 
     public void run(){
-        while(true){
-            state.updateObservers();
+        state.updateObservers();
+        boolean winner =false;
+        while(!winner) {
             deletion();
-            state.updateObservers();
             creation();
-            state.updateObservers();
-            //regenration starts before cell created
             regeneration();
-            state.updateObservers();
+            winner = checkForWinner();
         }
     }
 
