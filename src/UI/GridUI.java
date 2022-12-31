@@ -1,19 +1,20 @@
 package UI;
 
-import state.EncapsulatedGolState;
-import state.GolBoardImpl;
-import state.GolCell;
-import state.Player;
 import UI.gridElements.BorderedGrid;
 import UI.gridElements.RectangleWithColorFromOccupyingPlayer;
 import UI.gridElements.StackPaneCell;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import state.EncapsulatedGolState;
+import state.GolBoardImpl;
+import state.GolCell;
+import state.Player;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -26,16 +27,22 @@ public class GridUI {
     private CountDownLatch countDownLatchAwaitClick;
     private CountDownLatch countDownLatchAwaitCreation;
     private boolean listening;
+    TextField text;
     //public static String playerName = "default";
 
     public GridUI(EncapsulatedGolState state, CountDownLatch countDownLatchCreation) {
         this.state = state;
         countDownLatchAwaitClick = new CountDownLatch(1);
         countDownLatchAwaitCreation = countDownLatchCreation;
+
     }
 
     public void start(Stage primaryStage) {
         this.grid = createGrid((GolBoardImpl) state.board(), state.playersToScore().keySet().stream().toList());
+        //Create new stack Pane?
+        //Add Grid to pane
+        //Add info to pane
+        //SetScene to pane
         primaryStage.setScene(getScene(grid));
         primaryStage.show();
         countDownLatchAwaitCreation.countDown();
@@ -57,8 +64,9 @@ public class GridUI {
         return rectangle;
     }
 
-    //update displayed grid
+    void updateCreateContent(){
 
+    }
 
     private GridPane setCellsFromBoardToGrid(GolBoardImpl board,GridPane grid, List<Player> playersList) {
         //add cells to grid

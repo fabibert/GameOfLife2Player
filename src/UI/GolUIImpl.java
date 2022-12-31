@@ -32,13 +32,13 @@ public class GolUIImpl implements GolUI {
     @Override
     public Coordinates requestPlayerCellCreation() {
         //display creation request
-        return getClickedField();
+        return getClickedField(true);
     }
 
     @Override
     public Coordinates requestPlayerCellDeletion() {
         //display deletion request
-        return getClickedField();
+        return getClickedField(false);
     }
 
 
@@ -53,7 +53,7 @@ public class GolUIImpl implements GolUI {
         }
     }
 
-    public Coordinates getClickedField() {
+    public Coordinates getClickedField(boolean creation) {
         //set boolean value on grid
         try {
             countDownLatch.await();
