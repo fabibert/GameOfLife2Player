@@ -16,7 +16,6 @@ public class VerifierImpl implements Verifier {
 
     @Override
     public boolean verifyCellDeletion(Coordinates coordinates) {
-        //
         Player currentPlayer = state.getCurrentPlayer();
         GolBoard board = state.getBoard();
         GolCell cell = board.getCell(coordinates);
@@ -25,7 +24,6 @@ public class VerifierImpl implements Verifier {
 
     @Override
     public boolean verifyCellCreation(Coordinates coordinates) {
-        Player currentPlayer = state.getCurrentPlayer();
         GolBoard board = state.getBoard();
         GolCell cell = board.getCell(coordinates);
         return !cell.isAlive();

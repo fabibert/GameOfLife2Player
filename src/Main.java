@@ -1,3 +1,4 @@
+import Game.Game;
 import Game.GameFactory;
 import Game.GameFactoryImpl;
 import javafx.application.Application;
@@ -11,7 +12,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         GameFactory gameFactory = new GameFactoryImpl();
-        new Thread(() -> gameFactory.createGOLGame(stage).start()).start();
+        Game game = gameFactory.createGOLGame(stage);
+        new Thread(game::start).start();
     }
 }
 
