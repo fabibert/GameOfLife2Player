@@ -25,7 +25,7 @@ public class GolLogic implements GameLogic {
             deletion();
             creation();
             regeneration();
-            winner = checkForWinner();
+            //winner = checkForWinner();
         }
     }
 

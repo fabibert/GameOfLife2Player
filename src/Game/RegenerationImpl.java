@@ -5,6 +5,8 @@ import state.*;
 
 public class RegenerationImpl implements Regeneration {
     private GolState golState;
+    int neighbours1 = 0;
+    int neighbours2 = 0;
 
     public RegenerationImpl(GolState golState) {
         this.golState = golState;
@@ -19,34 +21,43 @@ public class RegenerationImpl implements Regeneration {
         for (int y = 0; y < board.getBoardHeight(); y++) {
             for (int x = 0; x < board.getBoardWidth(); x++) {
                 Coordinates coordinates = new Coordinates(x, y);
-                cellCreationRules(board, golBoard, player1, coordinates);
-                cellCreationRules(board, golBoard, player2, coordinates);
+                cellCreationRules(board, golBoard, player1, player2, coordinates);
             }
         }
         return golBoard;
     }
 
-    private void cellCreationRules(GolBoard board, GolBoard golBoard, Player player, Coordinates coordinates) {
+    //board is the old board and golBoard the new one
+    private void cellCreationRules(GolBoard board, GolBoard golBoard, Player player1, Player player2, Coordinates coordinates) {
         GolCell golCell = board.getCell(coordinates);
         if (golCell.isAlive()) {
-            if (golCell.getPlayer().equals(player)) {
-                if (getNumberOfAliveNeighbours(coordinates, player) < 2)
-                    golBoard.setCellEmpty(coordinates);
-                else if (getNumberOfAliveNeighbours(coordinates, player) == 2 || getNumberOfAliveNeighbours(coordinates, player) == 3)
-                    golBoard.setCellToPlayer(coordinates, player);
-                else if (getNumberOfAliveNeighbours(coordinates, player) > 3)
-                    golBoard.setCellEmpty(coordinates);
-            }
+            Player currentOccupant = golCell.getPlayer();
+            if (getNumberOfAliveNeighbours(coordinates, player1, player2) < 2)
+                golBoard.setCellEmpty(coordinates);
+            else if (getNumberOfAliveNeighbours(coordinates, player1, player2) == 2)
+                golBoard.setCellToPlayer(coordinates, currentOccupant);
+            else if(getNumberOfAliveNeighbours(coordinates, player1, player2) == 3)
+                if(this.neighbours1 > neighbours2)
+                    golBoard.setCellToPlayer(coordinates, player1);
+                else
+                    golBoard.setCellToPlayer(coordinates, player2);
+            else if (getNumberOfAliveNeighbours(coordinates, player1, player2) > 3)
+                golBoard.setCellEmpty(coordinates);
         }
         if (!golCell.isAlive()) {
-            if (getNumberOfAliveNeighbours(coordinates, player) == 3)
-                golBoard.setCellToPlayer(coordinates, player);
+            if (getNumberOfAliveNeighbours(coordinates, player1, player2) == 3)
+                if(this.neighbours1 > neighbours2)
+                    golBoard.setCellToPlayer(coordinates, player1);
+                else
+                    golBoard.setCellToPlayer(coordinates, player2);
         }
     }
 
 
-    private int getNumberOfAliveNeighbours(Coordinates coordinates, Player player) {
-        int neighbours = 0;
+    private int getNumberOfAliveNeighbours(Coordinates coordinates, Player player1, Player player2) {
+
+        this.neighbours1 = 0;
+        this.neighbours2 = 0;
 
         int x = coordinates.x();
         int y = coordinates.y();
@@ -54,11 +65,12 @@ public class RegenerationImpl implements Regeneration {
         for(int j = y-1; j<=y+1; j++){
             for(int i= x-1; i<= x+1; i++){
                 if(!(j==y && i==x)){
-                    neighbours += checkAlive(i,j,player);
+                    this.neighbours1 += checkAlive(i,j,player1);
+                    this.neighbours2 += checkAlive(i,j,player2);
                 }
             }
         }
-        return neighbours;
+        return neighbours1 + neighbours2;
     }
 
     private int checkAlive(int x, int y, Player player) {
