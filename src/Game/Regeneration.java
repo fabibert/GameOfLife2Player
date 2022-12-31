@@ -1,5 +1,7 @@
 package Game;
 
+import state.GolBoard;
+
 public interface Regeneration {
-    void regenerationBoard();
+    public GolBoard regenerationBoard();
 }
