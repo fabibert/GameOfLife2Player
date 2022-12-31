@@ -8,13 +8,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import state.EncapsulatedGolState;
 import state.GolBoardImpl;
@@ -42,7 +42,7 @@ public class GridUI {
 
     }
 
-    public void start(Stage primaryStage) {
+    public void start(Stage stage) {
         this.grid = createGrid((GolBoardImpl) state.board(), state.playersToScore().keySet().stream().toList());
         //Create new stack Pane?
         //Add Grid to pane
@@ -64,12 +64,27 @@ public class GridUI {
         HBox box4 = new HBox(2);
         box4.getChildren().addAll(label4);
 
-        box3.setAlignment(Pos.CENTER);
-        box4.setAlignment(Pos.BOTTOM_CENTER);
-        box1.setTranslateX(500);
-        box1.setTranslateX(100);
-        box3.setTranslateX(0);
-        box3.setTranslateX(200);
+
+        stage.setTitle("Table View Sample");
+        stage.setWidth(300);
+        stage.setHeight(500);
+
+        TableView table = new TableView();
+        final Label labelTitle = new Label("Address Book");
+        label.setFont(new Font("Arial", 20));
+
+        table.setEditable(true);
+
+        TableColumn category = new TableColumn("Category");
+        TableColumn stats = new TableColumn("Statistics");
+
+        table.getColumns().addAll(category, stats);
+
+        final VBox vbox = new VBox();
+        vbox.setSpacing(5);
+        vbox.setPadding(new Insets(10, 0, 0, 10));
+        vbox.getChildren().addAll(label, table);
+
 
         HBox box = new HBox(5);
         box.setPadding(new Insets(25, 5 , 5, 50));
@@ -79,14 +94,11 @@ public class GridUI {
         border.setCenter(grid);
         border.setRight(box);
 
-
-
-
         Scene scene = new Scene(border, 1000, 600);
 
         scene.getStylesheets().add("grid-with-borders.css");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
         countDownLatchAwaitCreation.countDown();
     }
 
