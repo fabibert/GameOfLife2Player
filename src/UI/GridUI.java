@@ -4,6 +4,7 @@ import UI.gridElements.BorderedGrid;
 import UI.gridElements.RectangleWithColorFromOccupyingPlayer;
 import UI.gridElements.StackPaneCell;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -14,9 +15,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import state.EncapsulatedGolState;
 import state.GolBoardImpl;
@@ -50,24 +48,37 @@ public class GridUI {
         //Add Grid to pane
         //Add info to pane
         //SetScene to pane
-        this.text = new TextField();
         Label label = new Label(state.playersToScore().keySet().toString());
-        Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 10);
-        text.setFont(font);
-        text.setMaxWidth(300);
+        //Label label2 = new Label(state.playersToScore().values().toString()); //TODO: implement counting alive cells per player
+        Label label3 = new Label("Number of evolutions: " + state.numberOfEvolution().toString());
+        Label label4 = new Label("Current Player: " + state.currentPlayer().playerName());
+        label4.setAlignment(Pos.BOTTOM_CENTER);
+
+        HBox box1 = new HBox(2);
+        box1.getChildren().addAll(label);
+        box1.setAlignment(Pos.TOP_CENTER);
+        //HBox box2 = new HBox(2);
+        //box2.getChildren().addAll(label, label3, label4);
+        HBox box3 = new HBox(2);
+        box3.getChildren().addAll(label3);
+        HBox box4 = new HBox(2);
+        box4.getChildren().addAll(label4);
+
+        box3.setAlignment(Pos.CENTER);
+        box4.setAlignment(Pos.BOTTOM_CENTER);
+        box1.setTranslateX(500);
+        box1.setTranslateX(100);
+        box3.setTranslateX(0);
+        box3.setTranslateX(200);
+
         HBox box = new HBox(5);
         box.setPadding(new Insets(25, 5 , 5, 50));
-        box.getChildren().addAll(label);
-        HBox box2 = new HBox(5);
-        box2.setPadding(new Insets(25, 5 , 5, 50));
-        box2.getChildren().addAll(label);
+        box.getChildren().addAll(box1, box3, box4);
 
         BorderPane border = new BorderPane();
         border.setCenter(grid);
-        BorderPane rightPane = new BorderPane();
-        border.setRight(rightPane);
-        rightPane.setTop(box);
-        rightPane.setBottom(box);
+        border.setRight(box);
+
 
 
 
