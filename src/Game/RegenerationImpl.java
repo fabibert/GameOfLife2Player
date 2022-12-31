@@ -12,10 +12,6 @@ public class RegenerationImpl implements Regeneration {
 
     @Override
     public GolBoard regenerationBoard() {
-        return evolve();
-    }
-
-    GolBoard evolve() {
         GolBoard board = golState.getBoard();
         GolBoard golBoard = new GolBoardImpl(board.getBoardHeight(), board.getBoardWidth());
         Player player1 = golState.getPlayers().get(0);
@@ -49,29 +45,23 @@ public class RegenerationImpl implements Regeneration {
     }
 
 
-    public int getNumberOfAliveNeighbours(Coordinates coordinates, Player player) {
+    private int getNumberOfAliveNeighbours(Coordinates coordinates, Player player) {
         int neighbours = 0;
-
-        GolBoard board = golState.getBoard();
 
         int x = coordinates.x();
         int y = coordinates.y();
 
-        neighbours += checkAlive(x - 1, y + 1, player);
-        neighbours += checkAlive(x, y + 1, player);
-        neighbours += checkAlive(x + 1, y + 1, player);
-
-        neighbours += checkAlive(x - 1, y, player);
-        neighbours += checkAlive(x + 1, y, player);
-
-        neighbours += checkAlive(x - 1, y - 1, player);
-        neighbours += checkAlive(x, y - 1, player);
-        neighbours += checkAlive(x + 1, y - 1, player);
-
+        for(int j = y-1; j<=y+1; j++){
+            for(int i= x-1; i<= x+1; i++){
+                if(!(j==y && i==x)){
+                    neighbours += checkAlive(i,j,player);
+                }
+            }
+        }
         return neighbours;
     }
 
-    int checkAlive(int x, int y, Player player) {
+    private int checkAlive(int x, int y, Player player) {
         if (x < 0 || golState.getBoard().getBoardWidth() <= x)
             return 0;
         if (y < 0 || golState.getBoard().getBoardWidth() <= y)
