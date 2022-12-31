@@ -24,6 +24,11 @@ public class GolLogic implements GameLogic {
         while(!winner) {
             deletion();
             creation();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             regeneration();
             //winner = checkForWinner();
         }
