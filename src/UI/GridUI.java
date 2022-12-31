@@ -3,12 +3,15 @@ package UI;
 import UI.gridElements.BorderedGrid;
 import UI.gridElements.RectangleWithColorFromOccupyingPlayer;
 import UI.gridElements.StackPaneCell;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -48,29 +51,25 @@ public class GridUI {
         //Add info to pane
         //SetScene to pane
         this.text = new TextField();
+        Label label = new Label(state.playersToScore().keySet().toString());
         Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 10);
         text.setFont(font);
         text.setMaxWidth(300);
-        //text.setTranslateX(15);
-        //text.setTranslateY(125);
-        //grnew GridPane()
-//        StackPane root = new StackPane(grid);
-//        StackPane parent = new StackPane(root, text);
-//        StackPane.setAlignment(grid, Pos.CENTER_LEFT);
-//        StackPane.setAlignment(text, Pos.CENTER_RIGHT);
-
-//        StackPane rootPane = new StackPane();
-//        Scene scene = new Scene(rootPane, 1000, 600);
-//        StackPane pane1 = new StackPane(grid);
-//        StackPane pane2 = new StackPane(text);
-//        rootPane.getChildren().addAll(pane1,pane2);
-//        StackPane.setAlignment(pane1, Pos.CENTER_RIGHT);
-//        StackPane.setAlignment(pane1, Pos.CENTER_LEFT);
-//        pane1.alignmentProperty();
+        HBox box = new HBox(5);
+        box.setPadding(new Insets(25, 5 , 5, 50));
+        box.getChildren().addAll(label);
+        HBox box2 = new HBox(5);
+        box2.setPadding(new Insets(25, 5 , 5, 50));
+        box2.getChildren().addAll(label);
 
         BorderPane border = new BorderPane();
         border.setCenter(grid);
-        border.setRight(text);
+        BorderPane rightPane = new BorderPane();
+        border.setRight(rightPane);
+        rightPane.setTop(box);
+        rightPane.setBottom(box);
+
+
 
         Scene scene = new Scene(border, 1000, 600);
 
