@@ -79,7 +79,7 @@ public class GridUI {
                 .entrySet()
                 .stream()
                 .map(e -> "Player: " + e.getKey().playerName() + " has " + e.getValue() + " " + "points.\n")
-                .reduce("", (string1, string2) -> string1 + string2);
+                .reduce("", (string1, string2) -> string2 + string1);
     }
 
     public void update( EncapsulatedGolState state){

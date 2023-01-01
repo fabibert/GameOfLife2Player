@@ -15,7 +15,10 @@ public class GolStateImpl implements GolState{
 
 
     public GolStateImpl(Player player1, Player player2, GolBoard board) {
-        players = List.of(player1, player2);
+        players = new ArrayList<Player>();
+        players.add(player1);
+        players.add(player2);
+        players.sort(Comparator.comparing(Player::playerName));
         this.board = board;
         observers = new ArrayList<Observer>();
     }
