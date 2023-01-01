@@ -44,19 +44,17 @@ class RegenerationImplTest {
     @Test
     void testRegenerationBoard() {
         this.state.setBoard(regeneration.regenerationBoard());
-        assertTrue(compareBoards());
+        compareBoards();
     }
 
 
-    boolean compareBoards(){
+    void compareBoards(){
         for (int y = 0; y < state.getBoard().getBoardHeight(); y++) {
             for (int x = 0; x < state.getBoard().getBoardWidth(); x++) {
                 Coordinates coordinates = new Coordinates(x, y);
-                if(!state.getBoard().getCell(coordinates).equals(this.testResultBoard.getCell(coordinates)))
-                    return false;
+                assertTrue(state.getBoard().getCell(coordinates).equals(this.testResultBoard.getCell(coordinates)));
             }
         }
-        return true;
     }
 
     private void setupTestInitialBoard(GolBoardImpl testInitialBoard) {
@@ -95,11 +93,11 @@ class RegenerationImplTest {
         testResultBoard.setCellToPlayer(new Coordinates(7,2), player2);
 
         testResultBoard.setCellToPlayer(new Coordinates(1,6), player1);
-        testResultBoard.setCellToPlayer(new Coordinates(0,7), player2);
-        testResultBoard.setCellToPlayer(new Coordinates(2,7), player2);
+        testResultBoard.setCellToPlayer(new Coordinates(0,7), player1);
+        testResultBoard.setCellToPlayer(new Coordinates(2,7), player1);
         testResultBoard.setCellToPlayer(new Coordinates(3,8), player1);
-        testResultBoard.setCellToPlayer(new Coordinates(0,9), player2);
-        testResultBoard.setCellToPlayer(new Coordinates(2,9), player2);
+        testResultBoard.setCellToPlayer(new Coordinates(0,9), player1);
+        testResultBoard.setCellToPlayer(new Coordinates(2,9), player1);
 
         testResultBoard.setCellToPlayer(new Coordinates(7,7), player2);
         testResultBoard.setCellToPlayer(new Coordinates(8,7), player2);
