@@ -101,15 +101,6 @@ public class GridUI {
         return grid;
     }
 
-    private Rectangle createCell(GolCell golCell, List<Player> playersList) {
-        Rectangle rectangle = new RectangleWithColorFromOccupyingPlayer(golCell, playersList);
-        return rectangle;
-    }
-
-    void updateCreateContent(){
-
-    }
-
     private GridPane setCellsFromBoardToGrid(GolBoardImpl board,GridPane grid, List<Player> playersList) {
         //add cells to grid
         for (int x = 0 ; x < board.getBoardWidth() ; x++) {
@@ -119,7 +110,6 @@ public class GridUI {
                 rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> locateClickOnGrid(node));
                 node.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> locateClickOnGrid(node));
                 grid.add(node, x, y);
-                //grid.add(createCell(board.getCell(x,y), playersList), x, y);
             }
         }
         return grid;
@@ -133,13 +123,6 @@ public class GridUI {
         }
     }
 
-//    void locateClickOnGrid(MouseEvent e){
-//        Node clickedNode = e.getPickResult().getIntersectedNode();
-//        Integer colIndex = GridPane.getColumnIndex(clickedNode);
-//        Integer rowIndex = GridPane.getRowIndex(clickedNode);
-//        System.out.println((colIndex)+ ":" + (rowIndex));
-//        setReturnValue(List.of(colIndex,rowIndex));
-//    }
 
     public void setReturnValue(List<Integer> indices){
         this.indices = indices;
@@ -154,13 +137,6 @@ public class GridUI {
             throw new RuntimeException(e);
         }
         return indices;
-    }
-
-    Scene getScene(GridPane grid){
-        StackPane root = new StackPane(grid, text);
-        Scene scene = new Scene(root, 600, 600);
-        scene.getStylesheets().add("grid-with-borders.css");
-        return scene;
     }
 
     public void setInstructions(boolean isCreation){

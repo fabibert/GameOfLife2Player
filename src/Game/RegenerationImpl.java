@@ -3,10 +3,14 @@ package Game;
 import UI.Coordinates;
 import state.*;
 
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 public class RegenerationImpl implements Regeneration {
-    private GolState golState;
-    int neighbours1 = 0;
-    int neighbours2 = 0;
+
+    private final GolState golState;
+
 
     Player player1;
     Player player2;
@@ -33,33 +37,34 @@ public class RegenerationImpl implements Regeneration {
 
     private void cellCreationRules(GolBoard oldBoard, GolBoard newBoard, Coordinates coordinates) {
         GolCell golCell = oldBoard.getCell(coordinates);
+        List<Player> aliveNeighbours = getAliveNeighbourOwners(coordinates);
+        int numberOfAliveNeighbours = aliveNeighbours.size();
         if (golCell.isAlive()) {
             Player currentOccupant = golCell.getPlayer();
-            if (getNumberOfAliveNeighbours(coordinates) < 2)
-                newBoard.setCellEmpty(coordinates);
-            else if (getNumberOfAliveNeighbours(coordinates) == 2)
+            if(numberOfAliveNeighbours == 2 || numberOfAliveNeighbours == 3){
                 newBoard.setCellToPlayer(coordinates, currentOccupant);
-            else if(getNumberOfAliveNeighbours(coordinates) == 3)
-                if(this.neighbours1 > this.neighbours2)
-                    newBoard.setCellToPlayer(coordinates, this.player1);
-                else
-                    newBoard.setCellToPlayer(coordinates, this.player2);
-            else if (getNumberOfAliveNeighbours(coordinates) > 3)
+            } else {
                 newBoard.setCellEmpty(coordinates);
-        }
-        if (!golCell.isAlive()) {
-            if (getNumberOfAliveNeighbours(coordinates) == 3)
-                if(this.neighbours1 > this.neighbours2)
-                    newBoard.setCellToPlayer(coordinates, this.player1);
-                else
-                    newBoard.setCellToPlayer(coordinates, this.player2);
+            }
+        } else {
+            if (numberOfAliveNeighbours == 3) {
+                Map<Player, Long> mapOfPlayerToCount = aliveNeighbours
+                        .stream()
+                        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+                Player playerWithHighestCount = mapOfPlayerToCount
+                        .entrySet()
+                        .stream()
+                        .max(Map.Entry.comparingByValue())
+                        .map(Map.Entry::getKey)
+                        .orElseThrow(RuntimeException::new);
+                newBoard.setCellToPlayer(coordinates, playerWithHighestCount);
+            }
         }
     }
 
 
-    private int getNumberOfAliveNeighbours(Coordinates coordinates) {
-        this.neighbours1 = 0;
-        this.neighbours2 = 0;
+    private List<Player> getAliveNeighbourOwners(Coordinates coordinates) {
+        List<Player> neighbours = new ArrayList<>();
 
         int x = coordinates.x();
         int y = coordinates.y();
@@ -67,21 +72,20 @@ public class RegenerationImpl implements Regeneration {
         for(int j = y-1; j<=y+1; j++){
             for(int i= x-1; i<= x+1; i++){
                 if(!(j==y && i==x)){
-                    this.neighbours1 += checkAlive(i,j,this.player1);
-                    this.neighbours2 += checkAlive(i,j,this.player2);
+                    checkAlive(i,j).ifPresent(neighbours::add);
                 }
             }
         }
-        return neighbours1 + neighbours2;
+        return neighbours;
     }
 
-    private int checkAlive(int x, int y, Player player) {
+    private Optional<Player> checkAlive(int x, int y) {
         if (x < 0 || golState.getBoard().getBoardWidth() <= x)
-            return 0;
+            return Optional.empty();
         if (y < 0 || golState.getBoard().getBoardWidth() <= y)
-            return 0;
-        if (golState.getBoard().getCell(new Coordinates(x, y)).isAlive())
-            return golState.getBoard().getCell(new Coordinates(x, y)).getPlayer().equals(player)? 1 : 0;
-        return 0;
+            return Optional.empty();
+        else{
+            return golState.getBoard().getCell(new Coordinates(x, y)).player();
+        }
     }
 }

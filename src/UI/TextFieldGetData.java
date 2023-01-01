@@ -21,7 +21,6 @@ public class TextFieldGetData {
     public static final int TEXT_FIELD_HEIGHT = 150;
     private String playerName = "";
     private final CountDownLatch countDownLatch;
-    //public static String playerName = "default";
 
     public TextFieldGetData(){
         countDownLatch = new CountDownLatch(1);
