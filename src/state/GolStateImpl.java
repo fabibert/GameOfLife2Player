@@ -62,7 +62,7 @@ public class GolStateImpl implements GolState{
         Arrays.stream(board.getArray())
                 .flatMap(Arrays::stream)
                 .filter(GolCell::isAlive)
-                .forEach(c -> playerToScore.put(getCurrentPlayer(), playerToScore.get(c.getPlayer())+1));
+                .forEach(c -> playerToScore.put(c.getPlayer(), playerToScore.get(c.getPlayer())+1));
         EncapsulatedGolState encapsulatedGolState = new EncapsulatedGolState(playerToScore, getBoard(),getNumberOfGenerations(), getCurrentPlayer());
         for(Observer observer: observers){
             observer.recieveGolStateEncapsulated(encapsulatedGolState);

@@ -4,65 +4,60 @@ import UI.gridElements.BorderedGrid;
 import UI.gridElements.RectangleWithColorFromOccupyingPlayer;
 import UI.gridElements.StackPaneCell;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import state.EncapsulatedGolState;
-import state.GolBoardImpl;
-import state.GolCell;
-import state.Player;
+import state.*;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 public class GridUI {
-    EncapsulatedGolState state;
+    //EncapsulatedGolState state;
     GridPane grid;
     private List<Integer> indices = List.of();
 
     private CountDownLatch countDownLatchAwaitClick;
     private CountDownLatch countDownLatchAwaitCreation;
     private boolean listening;
+    private Label playersToScore;
+    private Label numberOfEvolutions;
+    private Label instructions;
     TextField text;
     //public static String playerName = "default";
 
-    public GridUI(EncapsulatedGolState state, CountDownLatch countDownLatchCreation) {
-        this.state = state;
+    public GridUI(CountDownLatch countDownLatchCreation) {
         countDownLatchAwaitClick = new CountDownLatch(1);
         countDownLatchAwaitCreation = countDownLatchCreation;
 
     }
 
-    public void start(Stage stage) {
+    public void start(Stage stage, EncapsulatedGolState state) {
         this.grid = createGrid((GolBoardImpl) state.board(), state.playersToScore().keySet().stream().toList());
         //Create new stack Pane?
         //Add Grid to pane
         //Add info to pane
         //SetScene to pane
-        Label label = new Label(state.playersToScore().keySet().toString());
+        Insets value = new Insets(50, 10, 50, 10);
+        playersToScore = new Label(getPlayersToScoreText(state));
+        playersToScore.setWrapText(true);
+        playersToScore.setPadding(value);
         //Label label2 = new Label(state.playersToScore().values().toString()); //TODO: implement counting alive cells per player
-        Label label3 = new Label("Number of evolutions: " + state.numberOfEvolution().toString());
-        Label label4 = new Label("Current Player: " + state.currentPlayer().playerName());
-        label4.setAlignment(Pos.BOTTOM_CENTER);
+        numberOfEvolutions = new Label(getEvolutionsText(state));
+        numberOfEvolutions.setWrapText(true);
+        numberOfEvolutions.setPadding(value);
+        instructions = new Label(getInstructionsText(state));
+        instructions.setWrapText(true);
+        instructions.setPadding(value);
 
-        HBox box1 = new HBox(2);
-        box1.getChildren().addAll(label);
-        box1.setAlignment(Pos.TOP_CENTER);
-        //HBox box2 = new HBox(2);
-        //box2.getChildren().addAll(label, label3, label4);
-        HBox box3 = new HBox(2);
-        box3.getChildren().addAll(label3);
-        HBox box4 = new HBox(2);
-        box4.getChildren().addAll(label4);
+        VBox box = new VBox(2);
+        box.maxWidth(250);
+        box.getChildren().addAll(playersToScore, numberOfEvolutions, instructions);
 
 
         stage.setTitle("GameOfLife2Players");
@@ -84,10 +79,6 @@ public class GridUI {
 //        vbox.getChildren().addAll(label, table);
 
 
-        HBox box = new HBox(5);
-        box.setPadding(new Insets(25, 5 , 5, 50));
-        box.getChildren().addAll(box1, box3, box4);
-
         BorderPane border = new BorderPane();
         border.setCenter(grid);
         border.setRight(box);
@@ -100,8 +91,28 @@ public class GridUI {
         countDownLatchAwaitCreation.countDown();
     }
 
+    private String getInstructionsText(EncapsulatedGolState state) {
+        return "Current Player: " + state.currentPlayer().playerName();
+
+    }
+
+    private String getEvolutionsText(EncapsulatedGolState state) {
+        return "Number of evolutions: " + state.numberOfEvolution();
+    }
+
+    private String getPlayersToScoreText(EncapsulatedGolState state) {
+        return state.playersToScore()
+                .entrySet()
+                .stream()
+                .map(e -> "Player: " + e.getKey().playerName() + " has " + e.getValue() + " " + "points.\n")
+                .reduce("", (a, b) -> a + b);
+    }
+
     public void update( EncapsulatedGolState state){
         setCellsFromBoardToGrid((GolBoardImpl) state.board(), grid, state.playersToScore().keySet().stream().toList());
+        playersToScore.setText(getPlayersToScoreText(state));
+        numberOfEvolutions.setText(getEvolutionsText(state));
+        instructions.setText(getInstructionsText(state));
     }
 
     private GridPane createGrid(GolBoardImpl board, List<Player> playersList) {

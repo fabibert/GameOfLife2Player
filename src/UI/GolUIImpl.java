@@ -45,8 +45,8 @@ public class GolUIImpl implements GolUI {
     @Override
     public void recieveGolStateEncapsulated(EncapsulatedGolState state) {
         if(gridUi == null){
-            gridUi = new GridUI(state, countDownLatch);
-            runLater(() -> gridUi.start(stage));
+            gridUi = new GridUI(countDownLatch);
+            runLater(() -> gridUi.start(stage, state));
         }
         else{
             runLater(() -> gridUi.update(state));
