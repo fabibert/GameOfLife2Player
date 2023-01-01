@@ -9,13 +9,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import state.*;
+import state.EncapsulatedGolState;
+import state.GolBoardImpl;
+import state.Player;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+
+import static javafx.scene.paint.Color.BLUE;
+import static javafx.scene.paint.Color.RED;
 
 public class GridUI {
     //EncapsulatedGolState state;
@@ -29,6 +38,10 @@ public class GridUI {
     private Label numberOfEvolutions;
     private Label currentPlayer;
     private Label instructions;
+
+    Color color1 = BLUE;
+    Color color2 = RED;
+
     TextField text;
     //public static String playerName = "default";
 
@@ -91,7 +104,7 @@ public class GridUI {
     }
 
     private String getCurrentPlayerText(EncapsulatedGolState state) {
-        return "Current player is :" + state.currentPlayer().playerName();
+        return "Current player is: " + state.currentPlayer().playerName();
     }
 
     private GridPane createGrid(GolBoardImpl board, List<Player> playersList) {

@@ -30,8 +30,13 @@ public class GolLogic implements GameLogic {
                 throw new RuntimeException(e);
             }
             regeneration();
-            //winner = checkForWinner();
+            winner = state.checkForWinner();
         }
+    }
+
+    private boolean checkForWinner() {
+        state.getPlayers();
+        return false;
     }
 
     private void regeneration() {

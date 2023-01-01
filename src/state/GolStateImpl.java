@@ -77,6 +77,33 @@ public class GolStateImpl implements GolState{
         return playerToScore;
     }
 
+    public boolean checkForWinner(){
+        Map<Player, Integer> playersMap = getPlayerToScore();
+        Integer lowestCount = playersMap
+                .entrySet()
+                .stream()
+                .min(Map.Entry.comparingByValue())
+                .map(Map.Entry::getValue)
+                .orElseThrow(RuntimeException::new);
+        if(lowestCount==0){
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public Player getLeadingPlayer(){
+        Map<Player, Integer> playersMap = getPlayerToScore();
+        Player playerWithHighestCount = playersMap
+                .entrySet()
+                .stream()
+                .min(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElseThrow(RuntimeException::new);
+        return playerWithHighestCount;
+    }
+
+
     @Override
     public void removeObserver(Observer observer) {
         observers.remove(observer);
