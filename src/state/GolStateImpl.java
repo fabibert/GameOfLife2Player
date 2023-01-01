@@ -57,21 +57,22 @@ public class GolStateImpl implements GolState{
 
     @Override
     public void updateObservers() {
-        Map<Player, Integer> playerToScore = new HashMap<>();
-        players.forEach(p -> playerToScore.put(p, 0));
-        Arrays.stream(board.getArray())
-                .flatMap(Arrays::stream)
-                .filter(GolCell::isAlive)
-                .forEach(c -> playerToScore.put(c.getPlayer(), playerToScore.get(c.getPlayer())+1));
+        Map<Player, Integer> playerToScore = getPlayerToScore();
         EncapsulatedGolState encapsulatedGolState = new EncapsulatedGolState(playerToScore, getBoard(),getNumberOfGenerations(), getCurrentPlayer());
         for(Observer observer: observers){
             observer.recieveGolStateEncapsulated(encapsulatedGolState);
         }
     }
 
-    // TODO: implement cell counting method in the cell by going over board copy
-    //method: take playersList and go over current board counting cells
-
+    private Map<Player, Integer> getPlayerToScore() {
+        Map<Player, Integer> playerToScore = new HashMap<>();
+        players.forEach(p -> playerToScore.put(p, 0));
+        Arrays.stream(board.getArray())
+                .flatMap(Arrays::stream)
+                .filter(GolCell::isAlive)
+                .forEach(c -> playerToScore.put(c.getPlayer(), playerToScore.get(c.getPlayer())+1));
+        return playerToScore;
+    }
 
     @Override
     public void removeObserver(Observer observer) {
