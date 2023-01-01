@@ -39,20 +39,16 @@ public class GridUI {
     }
 
     public void start(Stage stage, EncapsulatedGolState state) {
+        stage.setTitle("GameOfLife2Players");
         this.grid = createGrid((GolBoardImpl) state.board(), state.playersToScore().keySet().stream().toList());
-        //Create new stack Pane?
-        //Add Grid to pane
-        //Add info to pane
-        //SetScene to pane
         Insets value = new Insets(50, 10, 50, 10);
         playersToScore = new Label(getPlayersToScoreText(state));
         playersToScore.setWrapText(true);
         playersToScore.setPadding(value);
-        //Label label2 = new Label(state.playersToScore().values().toString()); //TODO: implement counting alive cells per player
         numberOfEvolutions = new Label(getEvolutionsText(state));
         numberOfEvolutions.setWrapText(true);
         numberOfEvolutions.setPadding(value);
-        instructions = new Label(getInstructionsText(state));
+        instructions = new Label("");
         instructions.setWrapText(true);
         instructions.setPadding(value);
         currentPlayer = new Label(getCurrentPlayerText(state));
@@ -60,44 +56,18 @@ public class GridUI {
         currentPlayer.setPadding(value);
 
         VBox box = new VBox(2);
-        box.maxWidth(250);
         box.getChildren().addAll(playersToScore, numberOfEvolutions, currentPlayer, instructions);
-
-
-        stage.setTitle("GameOfLife2Players");
-
-//        TableView table = new TableView();
-//        final Label labelTitle = new Label("Address Book");
-//        label.setFont(new Font("Arial", 20));
-//
-//        table.setEditable(true);
-//
-//        TableColumn category = new TableColumn("Category");
-//        TableColumn stats = new TableColumn("Statistics");
-//
-//        table.getColumns().addAll(category, stats);
-//
-//        final VBox vbox = new VBox();
-//        vbox.setSpacing(5);
-//        vbox.setPadding(new Insets(10, 0, 0, 10));
-//        vbox.getChildren().addAll(label, table);
-
 
         BorderPane border = new BorderPane();
         border.setCenter(grid);
         border.setRight(box);
 
-        Scene scene = new Scene(border, 1200, 600);
+        Scene scene = new Scene(border, 900, 600);
 
         scene.getStylesheets().add("grid-with-borders.css");
         stage.setScene(scene);
         stage.show();
         countDownLatchAwaitCreation.countDown();
-    }
-
-    private String getInstructionsText(EncapsulatedGolState state) {
-        return "";
-
     }
 
     private String getEvolutionsText(EncapsulatedGolState state) {
@@ -109,7 +79,7 @@ public class GridUI {
                 .entrySet()
                 .stream()
                 .map(e -> "Player: " + e.getKey().playerName() + " has " + e.getValue() + " " + "points.\n")
-                .reduce("", (a, b) -> a + b);
+                .reduce("", (string1, string2) -> string1 + string2);
     }
 
     public void update( EncapsulatedGolState state){
@@ -117,7 +87,7 @@ public class GridUI {
         playersToScore.setText(getPlayersToScoreText(state));
         numberOfEvolutions.setText(getEvolutionsText(state));
         currentPlayer.setText(getCurrentPlayerText(state));
-        instructions.setText(getInstructionsText(state));
+        instructions.setText("");
     }
 
     private String getCurrentPlayerText(EncapsulatedGolState state) {
