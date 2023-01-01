@@ -27,6 +27,7 @@ public class GridUI {
     private boolean listening;
     private Label playersToScore;
     private Label numberOfEvolutions;
+    private Label currentPlayer;
     private Label instructions;
     TextField text;
     //public static String playerName = "default";
@@ -54,10 +55,13 @@ public class GridUI {
         instructions = new Label(getInstructionsText(state));
         instructions.setWrapText(true);
         instructions.setPadding(value);
+        currentPlayer = new Label(getCurrentPlayerText(state));
+        currentPlayer.setWrapText(true);
+        currentPlayer.setPadding(value);
 
         VBox box = new VBox(2);
         box.maxWidth(250);
-        box.getChildren().addAll(playersToScore, numberOfEvolutions, instructions);
+        box.getChildren().addAll(playersToScore, numberOfEvolutions, currentPlayer, instructions);
 
 
         stage.setTitle("GameOfLife2Players");
@@ -92,7 +96,7 @@ public class GridUI {
     }
 
     private String getInstructionsText(EncapsulatedGolState state) {
-        return "Current Player: " + state.currentPlayer().playerName();
+        return "";
 
     }
 
@@ -112,7 +116,12 @@ public class GridUI {
         setCellsFromBoardToGrid((GolBoardImpl) state.board(), grid, state.playersToScore().keySet().stream().toList());
         playersToScore.setText(getPlayersToScoreText(state));
         numberOfEvolutions.setText(getEvolutionsText(state));
+        currentPlayer.setText(getCurrentPlayerText(state));
         instructions.setText(getInstructionsText(state));
+    }
+
+    private String getCurrentPlayerText(EncapsulatedGolState state) {
+        return "Current player is :" + state.currentPlayer().playerName();
     }
 
     private GridPane createGrid(GolBoardImpl board, List<Player> playersList) {
@@ -182,6 +191,14 @@ public class GridUI {
         Scene scene = new Scene(root, 600, 600);
         scene.getStylesheets().add("grid-with-borders.css");
         return scene;
+    }
+
+    public void setInstructions(boolean isCreation){
+        if(isCreation){
+            instructions.setText("Please click a location to create a new cell");
+        } else {
+            instructions.setText("Please click on an opponents cell to delete it");
+        }
     }
 
     public void setListening(boolean listening) {
