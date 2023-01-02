@@ -10,15 +10,15 @@ public class TextFieldButton extends Button {
 
     public TextFieldButton(TextField textField, Text text, TextFieldGetData parent) {
         super("Submit");
-        this.setTranslateX(250);
-        this.setTranslateY(75);
+        this.setTranslateX(100);
+        this.setTranslateY(10);
         this.setOnAction(e -> playerInteraction(textField, text, parent));
     }
 
     private void playerInteraction(TextField textField, Text text, TextFieldGetData parent) {
         String playerName = textField.getText();
         text.setText("Hello " + playerName + ". Thank your for playing with us!");
-        parent.setReturnValue(playerName);
+        parent.setReturnValuePlayerName(playerName);
     }
 
 

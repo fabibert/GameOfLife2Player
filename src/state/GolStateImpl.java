@@ -100,7 +100,7 @@ public class GolStateImpl implements GolState{
         Player playerWithHighestCount = playersMap
                 .entrySet()
                 .stream()
-                .min(Map.Entry.comparingByValue())
+                .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .orElseThrow(RuntimeException::new);
         return playerWithHighestCount;

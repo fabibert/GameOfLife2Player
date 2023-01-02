@@ -14,19 +14,25 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import state.EncapsulatedGolState;
 import state.GolBoardImpl;
+import state.GolCell;
 import state.Player;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.RED;
 
 public class GridUI {
+    private final Map<String, Color> playerToColor;
     //EncapsulatedGolState state;
     GridPane grid;
     private List<Integer> indices = List.of();
@@ -46,16 +52,17 @@ public class GridUI {
     private Label winner;
     //public static String playerName = "default";
 
-    public GridUI(CountDownLatch countDownLatchCreation) {
+    public GridUI(CountDownLatch countDownLatchCreation, Map<String, Color> playerToColor) {
         countDownLatchAwaitClick = new CountDownLatch(1);
         countDownLatchAwaitCreation = countDownLatchCreation;
+        this.playerToColor = playerToColor;
 
     }
 
     public void start(Stage stage, EncapsulatedGolState state) {
         stage.setTitle("GameOfLife2Players");
         this.grid = createGrid((GolBoardImpl) state.board(), state.playersToScore().keySet().stream().toList());
-        Insets value = new Insets(50, 10, 50, 10);
+        Insets value = new Insets(30, 10, 30, 10);
         playersToScore = new Label(getPlayersToScoreText(state));
         playersToScore.setWrapText(true);
         playersToScore.setPadding(value);
@@ -82,6 +89,8 @@ public class GridUI {
         //TODO: problem this is not dynamically displayed
 
         VBox box = new VBox(2);
+        box.setMaxWidth(200);
+        box.setMinWidth(200);
         box.getChildren().addAll(playersToScore, numberOfEvolutions, currentPlayer, instructions, winner);
 
         BorderPane border = new BorderPane();
@@ -104,8 +113,9 @@ public class GridUI {
         return state.playersToScore()
                 .entrySet()
                 .stream()
+                .sorted(Comparator.comparing(entry -> entry.getKey().playerName()))
                 .map(e -> "Player: " + e.getKey().playerName() + " has " + e.getValue() + " " + "points.\n")
-                .reduce("", (string1, string2) -> string2 + string1);
+                .reduce("", (string1, string2) -> string1 + string2);
     }
 
     public void update( EncapsulatedGolState state){
@@ -114,6 +124,7 @@ public class GridUI {
         numberOfEvolutions.setText(getEvolutionsText(state));
         currentPlayer.setText(getCurrentPlayerText(state));
         instructions.setText("");
+        winner.setText(getWinnerText(state));
     }
 
     private String getCurrentPlayerText(EncapsulatedGolState state) {
@@ -122,8 +133,7 @@ public class GridUI {
     }
 
     private String getWinnerText(EncapsulatedGolState state) {
-        //if winner isPresent return "None"
-        return "Winner is: " + state.winner().toString();
+        return state.winner().map(player -> "Congratulations: player " + player.playerName() + " won!").orElse("");
     }
 
     private GridPane createGrid(GolBoardImpl board, List<Player> playersList) {
@@ -137,7 +147,9 @@ public class GridUI {
         //add cells to grid
         for (int x = 0 ; x < board.getBoardWidth() ; x++) {
             for (int y = 0 ; y < board.getBoardHeight() ; y++) {
-                Rectangle rectangle = new RectangleWithColorFromOccupyingPlayer(board.getCell(new Coordinates(x,y)), playersList);
+                GolCell cell = board.getCell(new Coordinates(x, y));
+                Optional<Color> color = cell.player().map(p -> playerToColor.get(p.playerName()));
+                Rectangle rectangle = new RectangleWithColorFromOccupyingPlayer(color);
                 StackPane node = new StackPaneCell(rectangle);
                 rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> locateClickOnGrid(node));
                 node.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> locateClickOnGrid(node));
