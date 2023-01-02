@@ -69,12 +69,3 @@ public class GolBoardImpl implements GolBoard {
 }
 
 
-//launcher to look at board
-class MyLaunch {
-    public static void main(String[] args){
-        GolBoardImpl board = new GolBoardImpl(10,10);
-        board.setCellToPlayer(new Coordinates(1,1), new Player("Fabio"));
-        System.out.println(board.getCell(new Coordinates(1,1)));
-    }
-}
-
