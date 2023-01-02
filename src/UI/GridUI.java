@@ -43,6 +43,7 @@ public class GridUI {
     Color color2 = RED;
 
     TextField text;
+    private Label winner;
     //public static String playerName = "default";
 
     public GridUI(CountDownLatch countDownLatchCreation) {
@@ -68,8 +69,20 @@ public class GridUI {
         currentPlayer.setWrapText(true);
         currentPlayer.setPadding(value);
 
+        //winner if empty
+        //Winner is not decided yet
+        String winnerText;
+//        if(!state.winner().isPresent())
+//            winnerText = "There has no winner been decided yet.";
+//        else
+//            winnerText = state.winner() + "has won the game!!!";
+        winner = new Label(getWinnerText(state));
+        winner.setWrapText(true);
+        winner.setPadding(value);
+        //TODO: problem this is not dynamically displayed
+
         VBox box = new VBox(2);
-        box.getChildren().addAll(playersToScore, numberOfEvolutions, currentPlayer, instructions);
+        box.getChildren().addAll(playersToScore, numberOfEvolutions, currentPlayer, instructions, winner);
 
         BorderPane border = new BorderPane();
         border.setCenter(grid);
@@ -104,7 +117,13 @@ public class GridUI {
     }
 
     private String getCurrentPlayerText(EncapsulatedGolState state) {
+        //if winner isPresent return "None"
         return "Current player is: " + state.currentPlayer().playerName();
+    }
+
+    private String getWinnerText(EncapsulatedGolState state) {
+        //if winner isPresent return "None"
+        return "Winner is: " + state.winner().toString();
     }
 
     private GridPane createGrid(GolBoardImpl board, List<Player> playersList) {

@@ -12,6 +12,6 @@ public interface GolState extends State, Observable {
     int getNumberOfGenerations();
     void increaseNumberOfGenerations();
     public boolean checkForWinner();
-
+    public Player getLeadingPlayer();
 
 }

@@ -1,7 +1,8 @@
 package UI;
 
-import state.EncapsulatedGolState;
 import javafx.stage.Stage;
+import state.EncapsulatedGolState;
+import state.Player;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -65,6 +66,11 @@ public class GolUIImpl implements GolUI {
         List<Integer> indices = gridUi.awaitReturnValue();
         System.out.println("Passed out: " + indices);
         return new Coordinates(indices.get(0), indices.get(1));
+    }
+
+    public void displayWinnerMsg(Player player){
+        WinnerField field = new WinnerField();
+        runLater(() -> field.start(stage, player));
     }
 }
 

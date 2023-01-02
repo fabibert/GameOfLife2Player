@@ -61,7 +61,10 @@ public class GolStateImpl implements GolState{
     @Override
     public void updateObservers() {
         Map<Player, Integer> playerToScore = getPlayerToScore();
-        EncapsulatedGolState encapsulatedGolState = new EncapsulatedGolState(playerToScore, getBoard(),getNumberOfGenerations(), getCurrentPlayer());
+        Optional<Player> winner = Optional.empty();
+        if(checkForWinner())
+            winner = Optional.of(getLeadingPlayer());
+        EncapsulatedGolState encapsulatedGolState = new EncapsulatedGolState(playerToScore, getBoard(),getNumberOfGenerations(), getCurrentPlayer(), winner);
         for(Observer observer: observers){
             observer.recieveGolStateEncapsulated(encapsulatedGolState);
         }
