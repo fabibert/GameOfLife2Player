@@ -1,6 +1,6 @@
 package state;
 
-import UI.Coordinates;
+import ui.Coordinates;
 
 public class GolStateBuilder implements StateBuilder<GolState> {
     @Override

@@ -1,6 +1,6 @@
 package state;
 
-import UI.Coordinates;
+import ui.Coordinates;
 
 import java.util.Arrays;
 import java.util.Optional;

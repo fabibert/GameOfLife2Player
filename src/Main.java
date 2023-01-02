@@ -1,6 +1,6 @@
-import Game.Game;
-import Game.GameFactory;
-import Game.GameFactoryImpl;
+import game.Game;
+import game.GameFactory;
+import game.GameFactoryImpl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

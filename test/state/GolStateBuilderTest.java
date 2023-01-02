@@ -1,6 +1,6 @@
 package state;
 
-import UI.Coordinates;
+import ui.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
