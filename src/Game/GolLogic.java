@@ -32,8 +32,6 @@ public class GolLogic implements GameLogic {
             regeneration();
             winner = state.checkForWinner();
         }
-        //ui.displayWinnerMsg(state.getLeadingPlayer());
-        int i = 0;
     }
 
     private boolean checkForWinner() {
