@@ -1,13 +1,12 @@
-package game;
+package game.verifier;
 
-import ui.Coordinates;
-import state.GolBoard;
-import state.GolCell;
+import state.board.GolBoard;
+import state.data.GolCell;
 import state.GolState;
-import state.Player;
+import state.data.Player;
+import state.data.Coordinates;
 
 public class VerifierImpl implements Verifier {
-
     GolState state;
 
     public VerifierImpl(GolState state){
@@ -19,7 +18,7 @@ public class VerifierImpl implements Verifier {
         Player currentPlayer = state.getCurrentPlayer();
         GolBoard board = state.getBoard();
         GolCell cell = board.getCell(coordinates);
-        return cell.isAlive() && !cell.getPlayer().equals(currentPlayer);
+        return cell.isAlive() && !cell.player().get().equals(currentPlayer);
     }
 
     @Override

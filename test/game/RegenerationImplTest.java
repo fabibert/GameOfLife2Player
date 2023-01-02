@@ -1,6 +1,11 @@
 package game;
 
-import ui.Coordinates;
+import game.regeneration.Regeneration;
+import game.regeneration.RegenerationImpl;
+import state.board.GolBoardImpl;
+import state.data.GolCell;
+import state.data.Player;
+import state.data.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import state.*;

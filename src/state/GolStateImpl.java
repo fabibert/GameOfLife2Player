@@ -1,26 +1,29 @@
 package state;
 
+import state.board.GolBoard;
+import state.data.EncapsulatedGolState;
+import state.data.GolCell;
+import state.data.Player;
+import state.data.Coordinates;
+import ui.Observer;
+
 import java.util.*;
 
 public class GolStateImpl implements GolState{
-
     private final List<Player> players;
-
-    private List<Observer> observers;
+    private final List<ui.Observer> observers;
     private int numberOfGenerations = 0;
-
-    //TODO: here use interface
     private GolBoard board;
 
 
 
     public GolStateImpl(Player player1, Player player2, GolBoard board) {
-        players = new ArrayList<Player>();
+        players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
         players.sort(Comparator.comparing(Player::playerName));
         this.board = board;
-        observers = new ArrayList<Observer>();
+        observers = new ArrayList<>();
     }
 
     @Override
@@ -30,13 +33,11 @@ public class GolStateImpl implements GolState{
 
     @Override
     public GolBoard getBoard() {
-        //TODO: safe copy board and pass back copy
-        return new GolBoardImpl(board.getArray());
+        return board.clone();
     }
 
     @Override
     public void setBoard(GolBoard board) {
-        //TODO: avoid reference leaking
         this.board = board;
         updateObservers();
     }
@@ -60,23 +61,29 @@ public class GolStateImpl implements GolState{
 
     @Override
     public void updateObservers() {
+        EncapsulatedGolState encapsulatedGolState = createEncapsulatedGolState();
+        for(ui.Observer observer: observers){
+            observer.recieveGolStateEncapsulated(encapsulatedGolState);
+        }
+    }
+
+    private EncapsulatedGolState createEncapsulatedGolState() {
         Map<Player, Integer> playerToScore = getPlayerToScore();
         Optional<Player> winner = Optional.empty();
         if(checkForWinner())
             winner = Optional.of(getLeadingPlayer());
-        EncapsulatedGolState encapsulatedGolState = new EncapsulatedGolState(playerToScore, getBoard(),getNumberOfGenerations(), getCurrentPlayer(), winner);
-        for(Observer observer: observers){
-            observer.recieveGolStateEncapsulated(encapsulatedGolState);
-        }
+        return new EncapsulatedGolState(playerToScore, getBoard(),getNumberOfGenerations(), getCurrentPlayer(), winner);
     }
 
     private Map<Player, Integer> getPlayerToScore() {
         Map<Player, Integer> playerToScore = new HashMap<>();
         players.forEach(p -> playerToScore.put(p, 0));
-        Arrays.stream(board.getArray())
-                .flatMap(Arrays::stream)
-                .filter(GolCell::isAlive)
-                .forEach(c -> playerToScore.put(c.getPlayer(), playerToScore.get(c.getPlayer())+1));
+        for (int i = 0; i < board.getBoardWidth(); i++) {
+            for (int j = 0; j < board.getBoardHeight(); j++) {
+                GolCell cell = board.getCell(new Coordinates(i, j));
+                cell.player().ifPresent(player -> playerToScore.put(player, playerToScore.get(player)+1));
+            }
+        }
         return playerToScore;
     }
 
@@ -88,29 +95,22 @@ public class GolStateImpl implements GolState{
                 .min(Map.Entry.comparingByValue())
                 .map(Map.Entry::getValue)
                 .orElseThrow(RuntimeException::new);
-        if(lowestCount==0){
-            return true;
-        }
-        else
-            return false;
+        return lowestCount==0;
     }
 
     public Player getLeadingPlayer(){
         Map<Player, Integer> playersMap = getPlayerToScore();
-        Player playerWithHighestCount = playersMap
+        return playersMap
                 .entrySet()
                 .stream()
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .orElseThrow(RuntimeException::new);
-        return playerWithHighestCount;
     }
 
-
     @Override
-    public void removeObserver(Observer observer) {
+    public void removeObserver(ui.Observer observer) {
         observers.remove(observer);
-
     }
 
     @Override

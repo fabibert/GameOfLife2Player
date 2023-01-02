@@ -1,11 +1,13 @@
 package game;
 
+import game.factory.GameFactory;
+import game.factory.GameFactoryImpl;
 import ui.GolUI;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import state.GolStateBuilder;
+import state.stateBuilder.GolStateBuilder;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.MockitoAnnotations.openMocks;

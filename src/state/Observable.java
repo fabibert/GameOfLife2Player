@@ -1,6 +1,8 @@
 package state;
 
 
+import ui.Observer;
+
 public interface Observable {
 
     void updateObservers();
@@ -8,6 +10,4 @@ public interface Observable {
     void addObserver(Observer observer);
 
     void removeObserver(Observer observer);
-
-
 }

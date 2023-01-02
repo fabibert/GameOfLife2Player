@@ -1,16 +1,15 @@
-package state;
+package state.board;
 
-import ui.Coordinates;
+import state.data.GolCell;
+import state.data.Player;
+import state.data.Coordinates;
 
-public interface GolBoard extends Board<GolCell>{
+public interface GolBoard extends Board {
     void setCellToPlayer(Coordinates coordinates, Player player);
     
     void setCellEmpty(Coordinates coordinates);
 
     GolCell getCell(Coordinates coordinates);
 
-    int getBoardHeight();
-
-    int getBoardWidth();
-
+    GolBoard clone();
 }

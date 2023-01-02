@@ -1,20 +1,21 @@
-package game;
+package game.regeneration;
 
-import ui.Coordinates;
 import state.*;
+import state.board.GolBoard;
+import state.board.GolBoardImpl;
+import state.data.GolCell;
+import state.data.Player;
+import state.data.Coordinates;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class RegenerationImpl implements Regeneration {
-
     private final GolState golState;
-
-
-    Player player1;
-    Player player2;
-
 
     public RegenerationImpl(GolState golState) {
         this.golState = golState;
@@ -24,8 +25,6 @@ public class RegenerationImpl implements Regeneration {
     public GolBoard regenerationBoard() {
         GolBoard oldBoard = golState.getBoard();
         GolBoard newBoard = new GolBoardImpl(oldBoard.getBoardHeight(), oldBoard.getBoardWidth());
-        this.player1 = golState.getPlayers().get(0);
-        this.player2 = golState.getPlayers().get(1);
         for (int y = 0; y < oldBoard.getBoardHeight(); y++) {
             for (int x = 0; x < oldBoard.getBoardWidth(); x++) {
                 Coordinates coordinates = new Coordinates(x, y);
@@ -40,7 +39,7 @@ public class RegenerationImpl implements Regeneration {
         List<Player> aliveNeighbours = getAliveNeighbourOwners(coordinates);
         int numberOfAliveNeighbours = aliveNeighbours.size();
         if (golCell.isAlive()) {
-            Player currentOccupant = golCell.getPlayer();
+            Player currentOccupant = golCell.player().get();
             if(numberOfAliveNeighbours == 2 || numberOfAliveNeighbours == 3){
                 newBoard.setCellToPlayer(coordinates, currentOccupant);
             } else {
@@ -48,18 +47,22 @@ public class RegenerationImpl implements Regeneration {
             }
         } else {
             if (numberOfAliveNeighbours == 3) {
-                Map<Player, Long> mapOfPlayerToCount = aliveNeighbours
-                        .stream()
-                        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-                Player playerWithHighestCount = mapOfPlayerToCount
-                        .entrySet()
-                        .stream()
-                        .max(Map.Entry.comparingByValue())
-                        .map(Map.Entry::getKey)
-                        .orElseThrow(RuntimeException::new);
+                Player playerWithHighestCount = getPlayerWithHighestCount(aliveNeighbours);
                 newBoard.setCellToPlayer(coordinates, playerWithHighestCount);
             }
         }
+    }
+
+    private Player getPlayerWithHighestCount(List<Player> aliveNeighbours) {
+        Map<Player, Long> mapOfPlayerToCount = aliveNeighbours
+                .stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        return mapOfPlayerToCount
+                .entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElseThrow(RuntimeException::new);
     }
 
 
@@ -82,7 +85,7 @@ public class RegenerationImpl implements Regeneration {
     private Optional<Player> checkAlive(int x, int y) {
         if (x < 0 || golState.getBoard().getBoardWidth() <= x)
             return Optional.empty();
-        if (y < 0 || golState.getBoard().getBoardWidth() <= y)
+        if (y < 0 || golState.getBoard().getBoardHeight() <= y)
             return Optional.empty();
         else{
             return golState.getBoard().getCell(new Coordinates(x, y)).player();

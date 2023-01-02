@@ -1,8 +1,12 @@
-package game;
+package game.logic;
 
-import ui.Coordinates;
+import game.regeneration.Regeneration;
+import game.regeneration.RegenerationImpl;
+import game.verifier.Verifier;
+import game.verifier.VerifierImpl;
+import state.data.Coordinates;
 import ui.GolUI;
-import state.GolBoard;
+import state.board.GolBoard;
 import state.GolState;
 
 public class GolLogic implements GameLogic {
@@ -24,25 +28,15 @@ public class GolLogic implements GameLogic {
         while(!winner) {
             deletion();
             creation();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            displayCreation();
             regeneration();
             winner = state.checkForWinner();
         }
     }
 
-    private boolean checkForWinner() {
-        state.getPlayers();
-        return false;
-    }
-
     private void regeneration() {
         state.increaseNumberOfGenerations();
         this.state.setBoard(regeneration.regenerationBoard());
-        //TODO: execute in the regeneration class
     }
 
     private void deletion() {
@@ -65,5 +59,11 @@ public class GolLogic implements GameLogic {
         state.setBoard(board);
     }
 
-
+    private void displayCreation() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

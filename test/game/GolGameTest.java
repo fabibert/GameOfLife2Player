@@ -1,7 +1,12 @@
 package game;
 
 
+import game.logic.GolLogic;
 import state.*;
+import state.board.GolBoardImpl;
+import state.data.EncapsulatedGolState;
+import state.data.Player;
+import state.stateBuilder.GolStateBuilder;
 import ui.GolUI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

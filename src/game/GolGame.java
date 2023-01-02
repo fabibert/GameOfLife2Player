@@ -1,19 +1,15 @@
 package game;
 
+import game.logic.GameLogic;
+import game.logic.GolLogic;
 import state.GolState;
-import state.StateBuilder;
+import state.stateBuilder.StateBuilder;
 import ui.GolUI;
 
-public class GolGame extends Game<GolUI, GolState>{
+public class GolGame extends AbstractGame<GolUI, GolState>{
 
     public GolGame(GolUI ui, StateBuilder<GolState> golStateBuilder) {
         super(ui, golStateBuilder);
-    }
-    //StateBuilder<T> builder;
-
-    @Override
-    public void start() {
-        super.start();
     }
 
     @Override

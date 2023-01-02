@@ -1,29 +1,23 @@
-package state;
+package state.board;
 
-import ui.Coordinates;
+import state.data.GolCell;
+import state.data.Player;
+import state.data.Coordinates;
 
 import java.util.Arrays;
 import java.util.Optional;
 
 public class GolBoardImpl implements GolBoard {
-
     GolCell[][] board;
-
-    //TODO: merge class with GolBoard or GolBoard interface only
     int boardHeight;
     int boardWidth;
 
-
-    //init board with other board
     public GolBoardImpl(GolCell[][] board){
-        //TODO: ensure no reference leakage
-        //ensure that a copy of the argument board is used
         this.board = board;
         this.boardHeight = board.length;
         this.boardWidth = board[0].length;
     }
 
-    //init fresh board
     public GolBoardImpl(int boardHeight,int boardWidth){
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
@@ -42,14 +36,8 @@ public class GolBoardImpl implements GolBoard {
         board[coordinates.x()][coordinates.y()] = new GolCell(Optional.empty());
     }
 
-    @Override
-    public GolCell[][] getArray(){
+    private GolCell[][] getArray(){
         return Arrays.stream(board).map(arr -> Arrays.copyOf(arr, arr.length)).toArray(GolCell[][]::new);
-    }
-
-    @Override
-    public void setArray(GolCell[][] array){
-        //TODO: implement set array
     }
 
     @Override
@@ -65,6 +53,11 @@ public class GolBoardImpl implements GolBoard {
     @Override
     public int getBoardWidth(){
         return boardWidth;
+    }
+
+    @Override
+    public GolBoard clone() {
+        return new GolBoardImpl(getArray());
     }
 }
 

@@ -1,13 +1,9 @@
 package ui;
 
-import ui.gridElements.BorderedGrid;
-import ui.gridElements.RectangleWithColorFromOccupyingPlayer;
-import ui.gridElements.StackPaneCell;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -16,10 +12,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import state.EncapsulatedGolState;
-import state.GolBoardImpl;
-import state.GolCell;
-import state.Player;
+import state.board.GolBoardImpl;
+import state.data.Coordinates;
+import state.data.EncapsulatedGolState;
+import state.data.GolCell;
+import state.data.Player;
+import ui.gridElements.BorderedGrid;
+import ui.gridElements.RectangleWithColorFromOccupyingPlayer;
+import ui.gridElements.StackPaneCell;
 
 import java.util.Comparator;
 import java.util.List;
@@ -27,29 +27,19 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 
-import static javafx.scene.paint.Color.BLUE;
-import static javafx.scene.paint.Color.RED;
-
 public class GridUI {
     private final Map<String, Color> playerToColor;
-    //EncapsulatedGolState state;
     GridPane grid;
     private List<Integer> indices = List.of();
-
     private CountDownLatch countDownLatchAwaitClick;
-    private CountDownLatch countDownLatchAwaitCreation;
+    private final CountDownLatch countDownLatchAwaitCreation;
     private boolean listening;
     private Label playersToScore;
     private Label numberOfEvolutions;
     private Label currentPlayer;
     private Label instructions;
-
-    Color color1 = BLUE;
-    Color color2 = RED;
-
-    TextField text;
     private Label winner;
-    //public static String playerName = "default";
+
 
     public GridUI(CountDownLatch countDownLatchCreation, Map<String, Color> playerToColor) {
         countDownLatchAwaitClick = new CountDownLatch(1);
@@ -74,18 +64,9 @@ public class GridUI {
         currentPlayer = new Label(getCurrentPlayerText(state));
         currentPlayer.setWrapText(true);
         currentPlayer.setPadding(value);
-
-        //winner if empty
-        //Winner is not decided yet
-        String winnerText;
-//        if(!state.winner().isPresent())
-//            winnerText = "There has no winner been decided yet.";
-//        else
-//            winnerText = state.winner() + "has won the game!!!";
         winner = new Label(getWinnerText(state));
         winner.setWrapText(true);
         winner.setPadding(value);
-        //TODO: problem this is not dynamically displayed
 
         VBox box = new VBox(2);
         box.setMaxWidth(200);

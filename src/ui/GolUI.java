@@ -1,14 +1,10 @@
 package ui;
 
-import state.Observer;
-import state.Player;
+import state.data.Coordinates;
 
 public interface GolUI extends UI, Observer {
 
     abstract Coordinates requestPlayerCellCreation();
 
     abstract Coordinates requestPlayerCellDeletion();
-
-    public void displayWinnerMsg(Player player);
-
 }

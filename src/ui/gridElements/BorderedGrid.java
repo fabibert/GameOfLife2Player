@@ -6,11 +6,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 
 public class BorderedGrid extends GridPane {
-
-    //extract
     public BorderedGrid(int numCols, int numRows) {
         super();
-        //adjust scale to zooming
         for (int x = 0 ; x < numCols ; x++) {
             ColumnConstraints cc = new ColumnConstraints();
             cc.setFillWidth(true);

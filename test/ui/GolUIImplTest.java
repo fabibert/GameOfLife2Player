@@ -4,8 +4,8 @@ import game.GolGame;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
-import state.EncapsulatedGolState;
-import state.GolBoardImpl;
+import state.data.EncapsulatedGolState;
+import state.board.GolBoardImpl;
 
 public class GolUIImplTest extends Application {
 

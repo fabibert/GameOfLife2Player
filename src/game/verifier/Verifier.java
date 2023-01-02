@@ -1,6 +1,6 @@
-package game;
+package game.verifier;
 
-import ui.Coordinates;
+import state.data.Coordinates;
 
 public interface Verifier {
     boolean verifyCellDeletion(Coordinates coordinates);

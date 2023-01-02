@@ -1,4 +1,6 @@
-package state;
+package ui;
+
+import state.data.EncapsulatedGolState;
 
 public interface Observer {
 

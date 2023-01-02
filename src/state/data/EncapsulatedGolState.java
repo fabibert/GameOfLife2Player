@@ -1,4 +1,7 @@
-package state;
+package state.data;
+
+import state.board.GolBoard;
+import state.data.Player;
 
 import java.util.Map;
 import java.util.Optional;

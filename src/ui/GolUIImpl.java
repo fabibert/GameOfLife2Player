@@ -2,8 +2,8 @@ package ui;
 
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import state.EncapsulatedGolState;
-import state.Player;
+import state.data.Coordinates;
+import state.data.EncapsulatedGolState;
 
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
@@ -16,8 +16,6 @@ public class GolUIImpl implements GolUI {
     Map<String, Color> playerToColor = new HashMap<>();
     List<String> allowedColors = new ArrayList<>();
 
-    //should consistently display a Grid
-    //update grid if we pass state
     CountDownLatch countDownLatch;
 
     public GolUIImpl(Stage stage){
@@ -41,13 +39,11 @@ public class GolUIImpl implements GolUI {
 
     @Override
     public Coordinates requestPlayerCellCreation() {
-        //display creation request
         return getClickedField(true);
     }
 
     @Override
     public Coordinates requestPlayerCellDeletion() {
-        //display deletion request
         return getClickedField(false);
     }
 
@@ -64,7 +60,6 @@ public class GolUIImpl implements GolUI {
     }
 
     public Coordinates getClickedField(boolean creation) {
-        //set boolean value on grid
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {
@@ -75,11 +70,6 @@ public class GolUIImpl implements GolUI {
         List<Integer> indices = gridUi.awaitReturnValue();
         System.out.println("Passed out: " + indices);
         return new Coordinates(indices.get(0), indices.get(1));
-    }
-
-    public void displayWinnerMsg(Player player){
-        WinnerField field = new WinnerField();
-        runLater(() -> field.start(stage, player));
     }
 }
 

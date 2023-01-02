@@ -1,6 +1,9 @@
 package state;
 
-import ui.Coordinates;
+import state.board.GolBoardImpl;
+import state.data.Player;
+import state.stateBuilder.GolStateBuilder;
+import state.data.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,6 +53,6 @@ class GolStateBuilderTest {
     @Test
     public void testStateInitBoardPattern(){
         GolState state = builder.createState(player1Name,player2Name);
-        assertTrue(state.getBoard().getCell(new Coordinates(2,3)).getPlayer().equals(player1));
+        assertTrue(state.getBoard().getCell(new Coordinates(2,3)).player().get().equals(player1));
     }
 }

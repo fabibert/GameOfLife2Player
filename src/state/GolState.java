@@ -1,5 +1,8 @@
 package state;
 
+import state.board.GolBoard;
+import state.data.Player;
+
 import java.util.List;
 
 public interface GolState extends State, Observable {
@@ -11,7 +14,7 @@ public interface GolState extends State, Observable {
     Player getCurrentPlayer();
     int getNumberOfGenerations();
     void increaseNumberOfGenerations();
-    public boolean checkForWinner();
-    public Player getLeadingPlayer();
+    boolean checkForWinner();
+    Player getLeadingPlayer();
 
 }

@@ -1,13 +1,15 @@
 package game;
 
-import ui.Coordinates;
+import game.verifier.Verifier;
+import game.verifier.VerifierImpl;
+import state.data.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import state.GolBoard;
-import state.GolCell;
+import state.board.GolBoard;
+import state.data.GolCell;
 import state.GolState;
-import state.Player;
+import state.data.Player;
 
 import java.util.Optional;
 
